@@ -808,7 +808,7 @@
 				cache.dom.bodyWidth = document.documentElement.clientWidth;
 			};
 			document.getElementById(consts.commonName + 'contentBar').style.overflow = (cache.dom.bodyWidth < 620) ? 'hidden': 'visible';
-			cache.dom.contentWidth = Math.ceil(cache.dom.bodyWidth - 152);
+			cache.dom.contentWidth = Math.ceil(cache.dom.bodyWidth - 252);
 			document.getElementById(consts.commonName + 'contentBar').style.width = cache.dom.contentWidth + 'px';
 			var tmpW, sub = 0,
 			i = 0,
