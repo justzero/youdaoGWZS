@@ -20,7 +20,6 @@
                if (json[i] !== 'auto')
                     div.style[i] = json[i] + 'px';
                else div.style[i] = 'auto';
-                //console.log('*' + i + ':' + json[i] + '*');
             }
 			if (cache.conf.position === 'up') {
 				div.style.top = (cache.conf.ie === 6) ? cache.dom.top + 62 + 'px' : '52px';
@@ -42,7 +41,6 @@
 				};
 				if (cache.conf.ie !== 6) $.addAnimate(options);
 			};
-            //alert(strhtml);
             if (fn) fn();
         },
         delayClean: function(timer, fn) {

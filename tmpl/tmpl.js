@@ -66,8 +66,8 @@
 						cache.dom.elem.style.overflow = div.style.overflow = 'visible';
 						close.name = '0';
 						$.tm.lowPriceResize();
-						var eSMax = document.getElementById(name + 'searchMax');
-						if (eSMax) eSMax.style.display = 'block';
+						/*var eSMax = document.getElementById(name + 'searchMax');
+						if (eSMax) eSMax.style.display = 'block';*/
 					},
 					context: this
 				};
@@ -76,9 +76,9 @@
 				div.style.overflow = 'hidden';
 				$.tm.lowPriceResize('none');
 				if (cache.dom.fDiv && cache.dom.fDiv.style.display !== 'none') cache.dom.fDiv.style.display = 'none';
-				var eSMax = document.getElementById(name + 'searchMax');
+			/*	var eSMax = document.getElementById(name + 'searchMax');
 				if (eSMax) eSMax.style.display = 'none';
-				json = {
+			*/	json = {
 					elem: div.id,
 					attr: ['width', cache.dom.contentWidth, 1, 'px'],
 					timer: 'normal',
@@ -625,7 +625,7 @@
  * */
 	$.tm.conf = '<span id="<%=name%>conf"\
 			<% if (data.code === "110000") {%>\
-				style="background-position-x: -30px; border-bottom: none 0; "\
+				style="background-position-x: -30px; border-bottom: none 0; float: left; "\
 			<% }else{ %>\
 				style="background-position-x: 0px;"\
 			<% } %>\
@@ -864,7 +864,7 @@
 			icon = document.getElementById(consts.commonName + 'icon');
 			div.style.width = 0;
 			div.style.overflow = 'hidden';
-			document.getElementById(name + 'searchMax').style.display = 'none';
+			//document.getElementById(name + 'searchMax').style.display = 'none';
 			div.style.display = 'none';
 			close.className = 'open';
 			close.name = '1';
