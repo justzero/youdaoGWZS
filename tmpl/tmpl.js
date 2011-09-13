@@ -143,7 +143,7 @@
  * searchMin 模版 
  * */
 	$.tm.searchMin = '<span id="<%=name%>searchMin" title="搜索" clkAction="SHOW_SEARCH"> </span>';
-	$.tm.info.searchMin = '<form id="<%=name%>searchMinForm" action="http://gouwu.youdao.com/search" target="_blank" method="get">\
+	$.tm.info.searchMin = '<form id="<%=name%>searchMinForm" action="http://gouwu.youdao.com/search?topkeyfrom=extension" target="_blank" method="get">\
                                     <input id="<%=name%>searchInfo" autocomplete="off" name="q" type="text" value="<%=value%>" />\
                                     <input id="<%=name%>searchBt" type="submit" clkAction="SEARCH" value="搜商品" />\
                                     </form>';
@@ -174,14 +174,6 @@
 				height: 'auto',
 				left: dom.pageX(this) - 35
 			};
-			if (!cache.conf.position || cache.conf.position === 'down') {
-				attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2: 'auto';
-				attr.bottom = 52;
-			}
-			else {
-				attr.top = (cache.conf.ie === 6) ? cache.dom.top + 52: 52;
-				attr.bottom = 'auto';
-			}
 			$.ctrl.setAttr(attr, html, function() {
 				document.getElementById(name + 'searchMin').className = 'enter';
 			});
@@ -224,7 +216,7 @@
 	/***
  * searchMax 模版 
  * */
-	$.tm.searchMax = '<% var addr = "http://gouwu.youdao.com/search", bt = "搜商品"; if (taobao) { addr="http://s.taobao.com/search"; bt="搜淘宝"; } %>\
+	$.tm.searchMax = '<% var addr = "http://gouwu.youdao.com/search?keyfrom=extension", bt = "搜商品"; if (taobao) { addr="http://s.taobao.com/search?keyfrom=extension"; bt="搜淘宝"; } %>\
 				 <form id="<%=name%>searchMax" action="<%=addr%>" target="_blank" method="get">\
 							<input id="<%=name%>sMaxInfo" autocomplete="off" name="q" type="text" value="<%=value%>" />\
                             <input id="<%=name%>sMaxBt" type="submit" clkAction="SEARCH" value="<%=bt%>" />\
@@ -285,14 +277,6 @@
 			if (div.style.display === 'block' && div.className === 'douban') {
 				$.ctrl.clean();
 				return;
-			}
-			if (!cache.conf.position || cache.conf.position === 'down') {
-				attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2: 'auto';
-				attr.bottom = 52;
-			}
-			else {
-				attr.top = (cache.conf.ie === 6) ? cache.dom.top + 52: 52;
-				attr.bottom = 'auto';
 			}
 			$.ctrl.setAttr(attr, html, function() {
 				elem.className = 'enter';
@@ -377,14 +361,6 @@
 				height: 'auto',
 				left: dom.pageX(this)
 			};
-			if (!cache.conf.position || cache.conf.position === 'down') {
-				attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2: 'auto';
-				attr.bottom = 52;
-			}
-			else {
-				attr.top = (cache.conf.ie === 6) ? cache.dom.top + 52: 52;
-				attr.bottom = 'auto';
-			}
 			$.ctrl.setAttr(attr, html);
 		});
 		$.event.addEvent(span, 'mouseout', function() {
@@ -505,18 +481,6 @@
 				height: 'auto',
 				left: dom.pageX(this)
 			};
-			/*if (div.style.display === 'block' && div.className === 'taobao') {
-                $.ctrl.clean();
-                return;
-            }*/
-			if (!cache.conf.position || cache.conf.position === 'down') {
-				attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2: 'auto';
-				attr.bottom = 52;
-			}
-			else {
-				attr.top = (cache.conf.ie === 6) ? cache.dom.top + 52: 52;
-				attr.bottom = 'auto';
-			}
 			$.ctrl.setAttr(attr, html, function() {
 				document.getElementById(name + 'taobao').className = 'enter';
 			});
@@ -638,24 +602,12 @@
 				},
 				$.tm.info.morePrice),
 				html = $.tmpl(str, json);
-				/*if (div.style.display === 'block' && div.className === 'morePrice') {
-                $.ctrl.clean();
-                return;
-            }*/
 				var attr = {
 					css: 'morePrice',
 					width: 300,
 					height: 'auto',
 					left: dom.pageX(this)
 				};
-				if (!cache.conf.position || cache.conf.position === 'down') {
-					attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2: 'auto';
-					attr.bottom = 52;
-				}
-				else {
-					attr.top = (cache.conf.ie === 6) ? cache.dom.top + 52: 52;
-					attr.bottom = 'auto';
-				}
 				$.ctrl.setAttr(attr, html, function() {
 					document.getElementById(name + 'morePrice').className = 'enter';
 				});
@@ -714,13 +666,6 @@
 				$.ctrl.clean();
 				return;
 			}
-			if (!cache.conf.position || cache.conf.position === 'down') { (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2: 'auto';
-				attr.bottom = 52;
-			}
-			else {
-				attr.top = (cache.conf.ie === 6) ? cache.dom.top + 52: 52;
-				attr.bottom = 'auto';
-			}
 			$.ctrl.setAttr(attr, html, function() {
 				document.getElementById(name + 'conf').className = 'enter';
 			});
@@ -753,6 +698,7 @@
 					if (cache.conf.ie === 6) {
 						cache.dom.top = document.documentElement.scrollTop;
 						cache.dom.elem.style.top = cache.dom.top + 1 + 'px';
+						cache.dom.elem.style.bottom = 'auto';
 					}
 					if (e = document.getElementById(name + 'features')) {
 						e.style.top = '35px';
@@ -766,8 +712,8 @@
 					var sE = document.getElementById(consts.optionsID);
 					if (sE && cache.localConf) sE.innerHTML = util.jsonToStr(cache.localConf, ';');
 					if (cache.conf.ie === 6) {
-						cache.dom.top = document.documentElement.scrollTop + document.documentElement.clientHeight - 52;
-						cache.dom.elem.style.top = cache.dom.top + 'px';
+						cache.dom.elem.style.bottom = cache.dom.bottom = (cache.conf.bottom) ? 0 : 1;
+						cache.dom.elem.style.top = cache.dom.top = 'auto';
 					}
 					if (e = document.getElementById(name + 'features')) {
 						e.style.bottom = '55px';

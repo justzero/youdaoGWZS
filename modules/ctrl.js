@@ -4,9 +4,6 @@
         setAttr: function(json, html, fn) {
             var cache = $.require_module('youdao.cache'),
             div = cache.dom.show;
-            //div.style.opacity = 0;
-            
-            //var strhtml ='';
             if ((json.left + json.width) > cache.dom.bodyWidth)
                 json.left = cache.dom.bodyWidth - json.width - 1;
 			if (div.className === json.css && div.style.left === json.left + 'px') {
@@ -25,6 +22,13 @@
                else div.style[i] = 'auto';
                 //console.log('*' + i + ':' + json[i] + '*');
             }
+			if (cache.conf.position === 'up') {
+				div.style.top = (cache.conf.ie === 6) ? cache.dom.top + 62 + 'px' : '52px';
+				div.style.bottom = 'auto';
+			} else {
+				div.style.bottom = (cache.conf.ie === 6) ? cache.dom.bottom + 62 + 'px' : '52px';
+				div.style.top = 'auto';
+			}
             div.innerHTML = html;
 			if (div.style.display === 'none'){
 				div.style.display = 'block';
@@ -36,7 +40,7 @@
 					context: this,
 					callback: function(){}
 				};
-				$.addAnimate(options);
+				if (cache.conf.ie !== 6) $.addAnimate(options);
 			};
             //alert(strhtml);
             if (fn) fn();
