@@ -222,9 +222,11 @@
  * */
 	$.tm.searchMax = '<% var addr = "http://gouwu.youdao.com/search?keyfrom=extension", bt = "搜商品"; if (taobao) { addr="http://s.taobao.com/search?keyfrom=extension"; bt="搜淘宝"; } %>\
 				 <form id="<%=name%>searchMax" action="<%=addr%>" target="_blank" method="get">\
+					        <fieldset id="<%=name%>fld">\
 							<input id="<%=name%>sMaxInfo" autocomplete="off" name="q" type="text" value="<%=value%>" />\
 							<input name="keyfrom" value="extension" type="hidden" />\
                             <input id="<%=name%>sMaxBt" type="submit" clkAction="SEARCH" value="<%=bt%>" />\
+							</fieldset>\
 							</form>';
 	$.tm.event.searchMax = function() {
 		$.event.addEvent(document.getElementById(name + 'sMaxInfo'), 'keypress', function(e) {
