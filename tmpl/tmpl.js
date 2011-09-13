@@ -33,7 +33,7 @@
  * */
 	$.tm.load = '<span class="youdaoGWBar_left"></span>\
 	<div class="youdaoGWBar_mid">\
-    <a id="<%=name%>icon" class="hide" href="http://gouwu.youdao.com/" clkAction="CLICK_LOGO" target="_blank" ref="icon"> </a>\
+    <a id="<%=name%>icon" class="hide" href="http://gouwu.youdao.com/?keyfrom=extension" clkAction="CLICK_LOGO" target="_blank" ref="icon"> </a>\
     <div id="<%=name%>contentBar">\
     <span class="youdaoGWLoad" > </span>\
     </div>\
@@ -147,6 +147,7 @@
 	$.tm.info.searchMin = '<form id="<%=name%>searchMinForm" action="http://gouwu.youdao.com/search?keyfrom=extension" target="_blank" method="get">\
 	                                <fieldset id="<%=name%>fld">\
                                     <input id="<%=name%>searchInfo" autocomplete="off" name="q" type="text" value="<%=value%>" />\
+									<input name="keyfrom" value="extension" type="hidden" />\
                                     <input id="<%=name%>searchBt" type="submit" clkAction="SEARCH" value="搜商品" />\
 									</fieldset>\
                                     </form>';
@@ -222,6 +223,7 @@
 	$.tm.searchMax = '<% var addr = "http://gouwu.youdao.com/search?keyfrom=extension", bt = "搜商品"; if (taobao) { addr="http://s.taobao.com/search?keyfrom=extension"; bt="搜淘宝"; } %>\
 				 <form id="<%=name%>searchMax" action="<%=addr%>" target="_blank" method="get">\
 							<input id="<%=name%>sMaxInfo" autocomplete="off" name="q" type="text" value="<%=value%>" />\
+							<input name="keyfrom" value="extension" type="hidden" />\
                             <input id="<%=name%>sMaxBt" type="submit" clkAction="SEARCH" value="<%=bt%>" />\
 							</form>';
 	$.tm.event.searchMax = function() {
@@ -761,7 +763,7 @@
 				cache.dom.bodyWidth = document.documentElement.clientWidth;
 			};
 			document.getElementById(consts.commonName + 'contentBar').style.overflow = (cache.dom.bodyWidth < 620) ? 'hidden': 'visible';
-			cache.dom.contentWidth = Math.ceil(cache.dom.bodyWidth - 152);
+			cache.dom.contentWidth = Math.ceil(cache.dom.bodyWidth - 252);
 			document.getElementById(consts.commonName + 'contentBar').style.width = cache.dom.contentWidth + 'px';
 			var tmpW, sub = 0,
 			i = 0,
