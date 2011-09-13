@@ -143,7 +143,7 @@
  * searchMin 模版 
  * */
 	$.tm.searchMin = '<span id="<%=name%>searchMin" title="搜索" clkAction="SHOW_SEARCH"> </span>';
-	$.tm.info.searchMin = '<form id="<%=name%>searchMinForm" action="http://gouwu.youdao.com/search?topkeyfrom=extension" target="_blank" method="get">\
+	$.tm.info.searchMin = '<form id="<%=name%>searchMinForm" action="http://gouwu.youdao.com/search?keyfrom=extension" target="_blank" method="get">\
                                     <input id="<%=name%>searchInfo" autocomplete="off" name="q" type="text" value="<%=value%>" />\
                                     <input id="<%=name%>searchBt" type="submit" clkAction="SEARCH" value="搜商品" />\
                                     </form>';
