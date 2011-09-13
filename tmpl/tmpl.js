@@ -128,12 +128,13 @@
 	var youdao_input_alert = function(e) {
 		var counter = 0;
 		var colorArr = ['#F2C100', '#BABABA'];
+		var el = document.getElementById( name + 'fld');
 		var timer = setInterval(function() {
-			e.style.borderColor = colorArr[counter % 2];
+			el.style.borderColor = colorArr[counter % 2];
 			counter++;
 			if (counter > 7) {
 				clearInterval(timer);
-				e.style.cssText = '';
+				el.style.cssText = '';
 			}
 		},
 		100);
@@ -144,8 +145,10 @@
  * */
 	$.tm.searchMin = '<span id="<%=name%>searchMin" title="搜索" clkAction="SHOW_SEARCH"> </span>';
 	$.tm.info.searchMin = '<form id="<%=name%>searchMinForm" action="http://gouwu.youdao.com/search?keyfrom=extension" target="_blank" method="get">\
+	                                <fieldset id="<%=name%>fld">\
                                     <input id="<%=name%>searchInfo" autocomplete="off" name="q" type="text" value="<%=value%>" />\
                                     <input id="<%=name%>searchBt" type="submit" clkAction="SEARCH" value="搜商品" />\
+									</fieldset>\
                                     </form>';
 	$.tm.event.searchMin = function() {
 		$.event.addEvent(document.getElementById(name + 'searchMin'), 'click', function() {
@@ -632,11 +635,15 @@
 			title="设置"\
 			clkAction="CLICK_SET"> </span>';
 	$.tm.info.conf = '<h2>设置</h2>\
-                  <div class="mid">显示位置: \
-                  <div class="radio">\
-                  <input id="upBt" type="radio" name="conf" value = "网页上方">浏览器顶部<br/>\
-                  <input id="downBt" type="radio" name="conf" value = "网页下方">浏览器底部</div>\
-				  <input id="<%=name%>set" type="button" clkAction="SET" value = "确定">\
+                  <div class="mid">\
+				  <strong>显示位置:</strong>\
+                  <div class="radio radio1">\
+                      <input id="upBt" type="radio" name="conf" value = "网页上方">浏览器顶部\
+			      </div>\
+				  <div class="radio radio2">\
+                      <input id="downBt" type="radio" name="conf" value = "网页下方">浏览器底部\
+				  </div>\
+				  <input id="<%=name%>set" type="button" clkAction="SET" value = "确定" class="non1">\
                   </div>\
                   <a class="youdaoGWZShelp" href="http://zhushou.youdao.com/help" clkAction="SUGGEST" target="_blank" >帮助</a>\
                   <a class="youdaoGWZSfeelback" href="http://feedback.youdao.com/quality_report.jsp?prodtype=gouwuzhushou" clkAction="HELP" target="_blank" >意见反馈</a>\
@@ -754,7 +761,7 @@
 				cache.dom.bodyWidth = document.documentElement.clientWidth;
 			};
 			document.getElementById(consts.commonName + 'contentBar').style.overflow = (cache.dom.bodyWidth < 620) ? 'hidden': 'visible';
-			cache.dom.contentWidth = Math.ceil(cache.dom.bodyWidth - 252);
+			cache.dom.contentWidth = Math.ceil(cache.dom.bodyWidth - 152);
 			document.getElementById(consts.commonName + 'contentBar').style.width = cache.dom.contentWidth + 'px';
 			var tmpW, sub = 0,
 			i = 0,
