@@ -251,12 +251,17 @@
 	$.tm.douban = '<span id="<%=name%>douban" <% if (!data.douban || !data.douban.doubanReview.summary) {  data.douban = { doubanRate : ""}; %> class="noMore" <% } else data.douban.doubanRate += "分"; %> hoverAction="SHOW_DOUBAN" ><%=data.douban.doubanRate%></span>';
 	$.tm.info.douban = '<ul><li class="douban1">\
                       <% ps = "0 " + (parseInt(rate) * 15 - 150) + "px"; %>\
-                      <span class="bookStar" style="background-position: <%=ps%>;"> </span>\
-                      <span style=" font-size: 15px; color: #cc0000;"><%=rate%></span><span style="font-size: 12px; color: #666;">(<%=rateCount%>人)</span></li>\
+                      <span class="bookStar" style="background-position: <%=ps%>;"></span>\
+                      <span style=" font-size: 14px; color: #cc0000;"><%=rate%></span><span style="font-size: 12px; color: #666;">(<%=rateCount%>人)</span>\
+					  </li>\
                       <li class="douban2">本书热门书评</li>\
                       <li class="douban3"><%=data.summary%><a class="" href="<%=data.url%>" target="_blank" clkAction="CLICK_DOUBAN" title="查看详情">详细>></a></li>\
-                      <li class="douban4"><span class="douban_author"><%=data.author%></span><span class="douban_time"><%=data.pubdate%></span></li>\
-					  <li class="douban5"><div class="moreShopBox" style="margin: 0;"><a class="bookMore" href="<%=doubanUrl%>" target="_blank" clkAction="CLICK_DOUBAN" title="去豆瓣查看详情">该书的详情</a></div></li></ul>';
+                      <li class="douban4">\
+					  <span class="douban_author"><%=data.author%></span><span class="douban_time"><%=data.pubdate%></span>\
+					  </li>\
+					  <li class="douban5">\
+					  <a class="moreShopBox" class="bookMore" href="<%=doubanUrl%>" target="_blank" clkAction="CLICK_DOUBAN" title="去豆瓣查看详情" style="margin: 0;"><span>该书的详情</span></a>\
+					  </li></ul>';
 					
 	$.tm.event.douban = function() {
 		var elem = document.getElementById(name + 'douban'),
@@ -416,9 +421,13 @@
                                 <% } %>\
                             <% } %>\
                             <% if (ship) { %>\
-                                <li class="ship"> <% if (data.famous) { %><span class="famous"></span> <%}%><%=data.siteName + ": "%><span style="color: #698723;"><%=data.shipping%></span></li>\
+                                <li class="ship">\
+								<% if (data.famous) { %><span class="famousleft"><%=data.siteName + ": "%></span> <%} else {%><%=data.siteName + ": "%><% } %>\
+								<span style="color: #698723;"><%=data.shipping%></span></li>\
                             <% } else { %>\
-                                <li class="ship"> <% if (data.famous) { %><span class="famous"></span> <%}%><%=data.siteName + ": "%><span style="color: #b2b2b2;">暂无运费信息</span></li>\
+                                <li class="ship">\
+								<% if (data.famous) { %><span class="famousleft"><%=data.siteName + ": "%></span> <%} else {%><%=data.siteName + ": "%><% } %>\
+								<span style="color: #b2b2b2;">暂无运费信息</span></li>\
                             <% } %>\
                             </ul>';
 
@@ -462,9 +471,9 @@
 					</li> \
                     <% } %>\
                     <li class="moreShop">\
-					<div class="moreShopBox">\
-					<a href="<%=moreUrl%>" target="_blank" rel="moreShop" clkAction="CLICK_TAOBAO" title="更多淘宝报价">更多淘宝搜索结果</a>\
-					</div>\
+					<a class="moreShopBox" href="<%=moreUrl%>" target="_blank" rel="moreShop" clkAction="CLICK_TAOBAO" title="更多淘宝报价">\
+					<span>更多淘宝搜索结果</span>\
+					</a>\
 					</li>\
                     </ul>';
 	$.tm.event.taobao = function() {
@@ -516,10 +525,9 @@
 												<td class="shopName">\
 													<% num = data[i].num;%>\
 													<a href="<%=data[i].items[num].url%>" clkAction="CLICK_ MORE_MERCHANT" rel="shop" target="_blank">\
-													<%=data[i].siteName%>\
-													<% if (data[i].famous) { %>\
-                                                		<span class="famous"></span>\
-                                            		<%}%>\
+													<%=data[i].siteName%><% if (data[i].famous) { %>\
+													<img src="http://e.gouwu.youdao.com/images/extension_2_0/famous.png" class="famous"/>\
+													<%}%>\
 													</a>\
 												</td>\
                                                 <td class="price">\
@@ -555,7 +563,7 @@
 													<a href="<%=data[i].items[num].url%>" rel="shop" clkAction="CLICK_ MORE_MERCHANT" style="color: #b2b2b2;" target="_blank">\
 													<%=data[i].siteName%>\
 													<% if (data[i].famous) { %>\
-                                                		<span class="famous"></span>\
+													<img src="http://e.gouwu.youdao.com/images/extension_2_0/famous.png" class="famous"/>\
                                             		<%}%>\
 													</a>\
 												</td>\
@@ -586,9 +594,9 @@
 										<% } %>\
                                     	<% } %>\
                                     <li class="moreShop">\
-										<div class="moreShopBox">\
-										<a href="<%=moreUrl%>" target="_blank" rel="moreShop" clkAction="CLICK_ MORE_MERCHANT" title="更多商城报价">更多商城报价</a>\
-										</div>\
+										<a href="<%=moreUrl%>" target="_blank" rel="moreShop" clkAction="CLICK_ MORE_MERCHANT" title="更多商城报价" class="moreShopBox">\
+										<span>更多商城报价</span>\
+										</a>\
 										</li>\
                                     </ul>';
 	$.tm.event.morePrice = function() {
