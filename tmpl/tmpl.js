@@ -110,10 +110,14 @@
 	 * button common function
 	 * */
 	var youdao_input_focus = function() {
+		var fld = document.getElementById(name+'fld');
+		fld.className = 'focus';
 		var txt = this.value;
 		if (txt === '请输入想查找的商品') this.value = '';
 	};
 	var youdao_input_blur = function() {
+		var fld = document.getElementById(name+'fld');
+		fld.className = '';
 		this.value = (/^\s*$/g).test(this.value) ? '请输入想查找的商品': this.value;
 		cache.conf.searchData = this.value;
 	};
