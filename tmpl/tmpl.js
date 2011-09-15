@@ -456,6 +456,7 @@
 							<%=data[i].price%>元\
 						</td>\
 					</tr>\
+					<tr class="tr3"></tr>\
                     <tr class="tr2">\
 						<td class="name" title="<%=data[i].name%>">\
 							<a href="<%=data[i].cpsUrl%>" rel="taobaoshop" clkAction="CLICK_TAOBAO" target="_blank" style="width: 100%; height: 100%;"><%=data[i].shortName%></a>\
@@ -538,6 +539,7 @@
 												<% } %>\
 												</td>\
 											</tr>\
+											<tr class="tr3"></tr>\
                                             <tr class="tr2">\
 												<td class="name" title="<%=data[i].items[num].name%>">\
 													<a href="<%=data[i].items[num].url%>" rel="shop" clkAction="CLICK_ MORE_MERCHANT" target="_blank" style="width: 100%; height: 100%;">\
@@ -579,6 +581,7 @@
 												<% } %>\
 												</td>\
 											</tr>\
+											<tr class="tr3"></tr>\
                                             <tr class="tr2">\
 												<td class="name" title="<%=data[i].items[num].name%>">\
 													<a href="<%=data[i].items[num].url%>" rel="shop" clkAction="CLICK_ MORE_MERCHANT" target="_blank" style="width: 100%; height: 100%; color: #b2b2b2;">\
