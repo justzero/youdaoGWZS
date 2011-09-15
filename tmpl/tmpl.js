@@ -321,7 +321,7 @@
 							<%=data.urlPriceList[i].siteName + " " + data.urlPriceList[i].items[0].price + "元(缺货)"%>\
 							<% } else {%>\
 								<% if (data.urlPriceList[i].items[0].priceImageUrl) {%>\
-								<%=data.urlPriceList[i].siteName + " " %><img src="<%=data.urlPriceList[i].items[0].priceImageUrl%>" style="width: 60px;" alt="price" />(缺货)\
+								<%=data.urlPriceList[i].siteName + " " %><img src="<%=data.urlPriceList[i].items[0].priceImageUrl%>" style="width: 60px; height: 20px; vertical-align: top;" alt="price" />(缺货)\
 								<%} else {%>\
 									<%=data.urlPriceList[i].siteName + " 暂无报价(缺货)"%>\
 								<% } %>\
@@ -339,7 +339,7 @@
 							<% } else { %>\
 							<%=data.urlPriceList[i].siteName + " "%>\
 							<% if (data.urlPriceList[i].items[0].priceImageUrl) %>\
-								<img src="<%=data.urlPriceList[i].items[0].priceImageUrl%>" style="width: 60px;" alt="price" />\
+								<img src="<%=data.urlPriceList[i].items[0].priceImageUrl%>" style="width: 60px; height: 20px; vertical-align: top;" alt="price" />\
 							<% else %> 暂无报价\
 							<% } %>\
 						<% } %>\
@@ -392,7 +392,7 @@
 									<span style=" display: block; float: right;"><%=priceList[i].price %>元</span>\
 									<%} else {%>\
 										<% if (priceList[i].priceImageUrl) {%>\
-											<img style=" display: block; float: right; width: 60px;" src="<%=priceList[i].priceImageUrl%>" alt="price"/>\
+											<img style=" display: block; float: right; width: 60px; height: 20px; vertical-align: top;" src="<%=priceList[i].priceImageUrl%>" alt="price"/>\
 										<%} else {%>\
 											<span style="dispay: block; float: right;">暂无报价</span>\
 										<%}%>\
@@ -408,7 +408,7 @@
 									<%} else {%>\
 										<% if (priceList[i].priceImageUrl) {%>\
 											<span style="display: block; float: right;">\
-												<img style="width: 60px;" src="<%=priceList[i].priceImageUrl%>" alt="price"/>\
+												<img style="width: 60px; height: 20px; vertical-align: top;" src="<%=priceList[i].priceImageUrl%>" alt="price"/>\
 												(缺货)\
 											</span>\
 										<%} else {%>\
@@ -535,7 +535,7 @@
 												<%if ((data[i].html && data[i].html !== "0.0元") || (!data[i].html && data[i].items[num].price !== "0.0")) {%>\
 													<%=(data[i].html || data[i].items[num].price + "元")%>\
 												<% } else {%>\
-													<img style="width: 60px;" src="<%=data[i].items[num].priceImageUrl%>"/>\
+													<img style="width: 60px; height: 20px; vertical-align: top;" src="<%=data[i].items[num].priceImageUrl%>"/>\
 												<% } %>\
 												</td>\
 											</tr>\
@@ -574,7 +574,7 @@
 													<%=data[i].items[num].price + "元"%>\
 												<% } else {%>\
 													<% if (data[i].items[0].priceImageUrl !== "") { %>\
-														<img style="width: 60px;" src="<%=data[i].items[num].priceImageUrl%>"/>\
+														<img style="width: 60px; height: 20px; vertical-align: top;" src="<%=data[i].items[num].priceImageUrl%>"/>\
 													<% } else { %>\
 														无报价信息\
 													<% } %>\
@@ -779,8 +779,6 @@
 			} else {
 				cache.dom.bodyWidth = document.documentElement.clientWidth;
 			};
-			document.getElementById(consts.commonName + 'contentBar').style.overflow = (cache.dom.bodyWidth < 620) ? 'hidden': 'visible';
-			
 			cache.dom.contentWidth = (cache.conf.ie === 6) ? Math.ceil(cache.dom.bodyWidth - 158) : Math.ceil(cache.dom.bodyWidth - 152);
 			document.getElementById(consts.commonName + 'contentBar').style.width = cache.dom.contentWidth + 'px';
 			var tmpW, sub = 0,
@@ -877,10 +875,12 @@
 					if (document.body.style.marginTop === '50px' && cache.dom.elem.className === 'down') {
 						options.attr = ['marginTop', 50, 0, 'px'];
 						$.addAnimate(options);
+						//document.body.style.marginTop = 'auto';
 					};
 					if (document.body.style.marginTop !== '50px' && cache.dom.elem.className === 'up') {
 						options.attr = ['marginTop', 0, 50, 'px'];
 						$.addAnimate(options);
+						//document.body.style.marginTop = '50px';
 					};
 				});
 			});

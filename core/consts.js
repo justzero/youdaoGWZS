@@ -17,7 +17,7 @@
 		optionsID: "youdaoGWZS_options",
 		serUrl: "productSense",
 		updateSer: "productSense",
-		baseCss: "http://e.gouwu.youdao.com/css/",
+		baseCss: "http://192.168.4.41/gouwu/css/",
 		commonCssName: "extension_2_0_",
 		commonName: "gouwu_",
 		showTime: .2,
