@@ -47,7 +47,10 @@
 			div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->', all[0]);
 			return v > 4 ? v: undef;
 		} ());
-		if (cache.conf.ie) cache.conf.browser = 'ie';
+		if (cache.conf.ie) {
+			cache.conf.browser = 'ie';
+			if (document.compatMode === 'BackCompat') cache.conf.backCompat = true;
+		}
 	};
 
 	$.conf.init.push('youdao.modules.info');

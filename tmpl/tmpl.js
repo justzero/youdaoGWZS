@@ -546,13 +546,11 @@
 													<%=data[i].items[num].shortName%>\
 													</a>\
 												</td>\
-												<td class="ship">\
-													<% if (data[i].shipping) { %>\
-														<span style="color: #698723;"><%=data[i].shipping%></span>\
+												<td class="ship"><% if (data[i].shipping) { %>\
+														<span style="color: #698723;"><%=data[i].shipping%></span></td>\
 													<% } else { %>\
-														<span style="color: #b2b2b2;">暂无运费信息</span>\
+														<span style="color: #b2b2b2;">暂无运费信息</span></td>\
 													<% } %>\
-												</td>\
 											</tr>\
                                         </table>\
 										</li> \
@@ -677,7 +675,7 @@
 				name: consts.commonName
 			},
 			str = $.tm.popo({
-				leftX: 193,
+				leftX: 203,
 				type: 1
 			},
 			youdao.tm.info.conf),
@@ -779,7 +777,7 @@
 			} else {
 				cache.dom.bodyWidth = document.documentElement.clientWidth;
 			};
-			cache.dom.contentWidth = (cache.conf.ie === 6) ? Math.ceil(cache.dom.bodyWidth - 158) : Math.ceil(cache.dom.bodyWidth - 152);
+			cache.dom.contentWidth = (cache.conf.ie === 6) ? Math.ceil(cache.dom.bodyWidth - 160) : Math.ceil(cache.dom.bodyWidth - 152);
 			document.getElementById(consts.commonName + 'contentBar').style.width = cache.dom.contentWidth + 'px';
 			var tmpW, sub = 0,
 			i = 0,

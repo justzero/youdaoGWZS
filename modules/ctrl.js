@@ -4,8 +4,8 @@
         setAttr: function(json, html, fn) {
             var cache = $.require_module('youdao.cache'),
             div = cache.dom.show;
-            if ((json.left + json.width) > cache.dom.bodyWidth)
-                json.left = cache.dom.bodyWidth - json.width - 1;
+            if ((json.left + json.width + 10) > cache.dom.bodyWidth)
+                json.left = cache.dom.bodyWidth - json.width - 10;
 			if (div.className === json.css && div.style.left === json.left + 'px') {
             	this.cleanTime();
 				return;

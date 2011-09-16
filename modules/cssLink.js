@@ -29,7 +29,8 @@
 				100);
 			}
 		};
-		CSSload(css, callback.success);
+		if (!cache.conf.backCompat) 
+		    CSSload(css, callback.success);
 	};
 })(youdao);
 
