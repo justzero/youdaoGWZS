@@ -29,7 +29,6 @@
 				return true;
 			}
 			img.src = consts.logUrl + '?' + util.comboParams(json);
-			console.log(img.src);
 			return true;
 		};
 		/*** µÝ¹é½Úµã ***/

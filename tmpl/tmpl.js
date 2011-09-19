@@ -76,9 +76,10 @@
 				div.style.overflow = 'hidden';
 				$.tm.lowPriceResize('none');
 				if (cache.dom.fDiv && cache.dom.fDiv.style.display !== 'none') cache.dom.fDiv.style.display = 'none';
-			/*	var eSMax = document.getElementById(name + 'searchMax');
+				/*	var eSMax = document.getElementById(name + 'searchMax');
 				if (eSMax) eSMax.style.display = 'none';
-			*/	json = {
+			*/
+				json = {
 					elem: div.id,
 					attr: ['width', cache.dom.contentWidth, 1, 'px'],
 					timer: 'normal',
@@ -110,13 +111,13 @@
 	 * button common function
 	 * */
 	var youdao_input_focus = function() {
-		var fld = document.getElementById(name+'fld');
+		var fld = document.getElementById(name + 'fld');
 		fld.className = 'focus';
 		var txt = this.value;
 		if (txt === '请输入想查找的商品') this.value = '';
 	};
 	var youdao_input_blur = function() {
-		var fld = document.getElementById(name+'fld');
+		var fld = document.getElementById(name + 'fld');
 		fld.className = '';
 		this.value = (/^\s*$/g).test(this.value) ? '请输入想查找的商品': this.value;
 		cache.conf.searchData = this.value;
@@ -132,7 +133,7 @@
 	var youdao_input_alert = function(e) {
 		var counter = 0;
 		var colorArr = ['#F2C100', '#BABABA'];
-		var el = document.getElementById( name + 'fld');
+		var el = document.getElementById(name + 'fld');
 		var timer = setInterval(function() {
 			el.style.borderColor = colorArr[counter % 2];
 			counter++;
@@ -262,7 +263,7 @@
 					  <li class="douban5">\
 					  <a class="moreShopBox" class="bookMore" href="<%=doubanUrl%>" target="_blank" clkAction="CLICK_DOUBAN" title="去豆瓣查看详情" style="margin: 0;"><span>该书的详情</span></a>\
 					  </li></ul>';
-					
+
 	$.tm.event.douban = function() {
 		var elem = document.getElementById(name + 'douban'),
 		cache = $.require_module('youdao.cache'),
@@ -487,7 +488,7 @@
 			var div = cache.dom.show,
 			dom = $.require_module('youdao.dom'),
 			str = $.tm.popo({
-				leftX: 180,
+				leftX: 280,
 				type: 2
 			},
 			youdao.tm.info.taobao),
@@ -524,7 +525,7 @@
 										<table  border="0">\
                                             <tr class="tr1">\
 												<td class="shopName">\
-													<% num = data[i].num;%>\
+													<% var num = data[i].num; %>\
 													<a href="<%=data[i].items[num].url%>" clkAction="CLICK_ MORE_MERCHANT" rel="shop" target="_blank">\
 													<%=data[i].siteName%><% if (data[i].famous) { %>\
 													<img src="http://e.gouwu.youdao.com/images/extension_2_0/famous.png" class="famous"/>\
@@ -617,7 +618,7 @@
 					logo: '商城报价'
 				},
 				str = $.tm.popo({
-					leftX: 10,
+					leftX: 110,
 					type: 2
 				},
 				$.tm.info.morePrice),
@@ -663,7 +664,7 @@
 				  <input id="<%=name%>set" type="button" clkAction="SET" value = "确定" class="non1">\
                   </div>\
                   <a class="youdaoGWZShelp" href="http://zhushou.youdao.com/help" clkAction="SUGGEST" target="_blank" >帮助</a>\
-                  <a class="youdaoGWZSfeelback" href="http://feedback.youdao.com/quality_report.jsp?prodtype=gouwuzhushou" clkAction="HELP" target="_blank" >意见反馈</a>\
+                  <a class="youdaoGWZSfeelback" href="http://zhushou.youdao.com/suggest" clkAction="HELP" target="_blank" >意见反馈</a>\
                   <a id="<%=name%>confClose" title="关闭"> </a>';
 	$.tm.event.conf = function() {
 		var util = $.require_module('youdao.util');
@@ -724,6 +725,11 @@
 						cache.dom.elem.style.top = cache.dom.top + 1 + 'px';
 						cache.dom.elem.style.bottom = 'auto';
 					}
+					if (cache.conf.backCompat) {
+						cache.dom.top = document.body.scrollTop;
+						cache.dom.elem.style.top =cache.dom.top + 'px';
+						cache.dom.elem.style.bottom = 'auto';
+					}
 					if (e = document.getElementById(name + 'features')) {
 						e.style.top = '35px';
 						e.style.bottom = 'auto';
@@ -736,7 +742,12 @@
 					var sE = document.getElementById(consts.optionsID);
 					if (sE && cache.localConf) sE.innerHTML = util.jsonToStr(cache.localConf, ';');
 					if (cache.conf.ie === 6) {
-						cache.dom.elem.style.bottom = cache.dom.bottom = (cache.conf.bottom) ? 0 : 1;
+						cache.dom.elem.style.bottom = cache.dom.bottom = (cache.conf.bottom) ? 0: 1;
+						cache.dom.elem.style.top = cache.dom.top = 'auto';
+					}
+					if (cache.conf.backCompat) {
+						cache.dom.bottom = 0 - document.body.scrollTop;
+						cache.dom.elem.style.bottom = cache.dom.bottom + 'px';
 						cache.dom.elem.style.top = cache.dom.top = 'auto';
 					}
 					if (e = document.getElementById(name + 'features')) {
@@ -775,7 +786,7 @@
 				cache.dom.bodyWidth = cache.dom.body.offsetWidth;
 				cache.dom.body.style.width = w;
 			} else {
-				cache.dom.bodyWidth = document.documentElement.clientWidth;
+				cache.dom.bodyWidth = (document.documentElement.clientWidth) ? document.documentElement.clientWidth: document.body.clientWidth;
 			};
 			cache.dom.contentWidth = (cache.conf.ie === 6) ? Math.ceil(cache.dom.bodyWidth - 160) : Math.ceil(cache.dom.bodyWidth - 152);
 			document.getElementById(consts.commonName + 'contentBar').style.width = cache.dom.contentWidth + 'px';
@@ -856,7 +867,8 @@
 					$.addAnimate(options);
 				};
 			});
-			$.event.addEvent(document.getElementById(consts.commonName + 'conf'), 'click', function() {
+			var conf = document.getElementById(consts.commonName + 'conf');
+			if (conf) $.event.addEvent(conf, 'click', function() {
 				if (cache.dom.show.style.display === 'none') return;
 				var set = document.getElementById(consts.commonName + 'set');
 				if (!set) return;

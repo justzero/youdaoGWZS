@@ -22,12 +22,12 @@
                else div.style[i] = 'auto';
             }
 			if (cache.conf.position === 'up') {
-				div.style.top = (cache.conf.ie === 6) ? cache.dom.top + 62 + 'px' : '62px';
-				if (!cache.conf.ie) div.style.top = '52px';
+				div.style.top = (cache.conf.ie === 6 || cache.conf.backCompat) ? cache.dom.top + 52 + 'px' : '52px';
+				if (cache.conf.ie === 6) div.style.top = cache.dom.top + 62 + 'px';
 				div.style.bottom = 'auto';
 			} else {
-				div.style.bottom = (cache.conf.ie === 6) ? cache.dom.bottom + 62 + 'px' : '62px';
-				if (!cache.conf.ie) div.style.bottom = '52px';
+				div.style.bottom = (cache.conf.ie === 6 || cache.conf.backCompat) ? cache.dom.bottom + 52 + 'px' : '52px';
+				if (cache.conf.ie === 6) div.style.bottom = cache.dom.bottom + 62 + 'px';
 				div.style.top = 'auto';
 			}
             div.innerHTML = html;
@@ -70,8 +70,6 @@
             //div.innerHTML = '';
 			if (!cache.localConf || !cache.localConf.popofade || cache.localConf.popofade !== "false") {
             	div.className = '';
-            	div.style.top = 'auto';
-            	div.style.bottom = 'auto';
 				div.style.display = 'none';
 			};
         },

@@ -85,6 +85,7 @@
 			return false;
 		},
 		addEvent: function(elems, type, handle) {
+			if (!elems) return;
 			if (elems.nodeType === 1 || elems.document) {
 				this._addEvent(elems, type, handle);
 				return;

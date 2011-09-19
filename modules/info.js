@@ -49,7 +49,9 @@
 		} ());
 		if (cache.conf.ie) {
 			cache.conf.browser = 'ie';
-			if (document.compatMode === 'BackCompat') cache.conf.backCompat = true;
+			if (document.compatMode === 'BackCompat') {
+				cache.conf.backCompat = true;
+			}
 		}
 	};
 

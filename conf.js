@@ -3,8 +3,8 @@
     $.conf = {
         'init': [],
         'initGouwuContainer': [],
-        '110011': ['searchMin', 'douban',  'conf', 'taobao', 'morePrice','priceData', 'resize'],
-        '110000': ['searchMax','conf'],
+        '110011': ['searchMin', 'douban', 'taobao', 'morePrice','priceData', 'resize'],
+        '110000': ['searchMax'],
         features: ['priceData', 'douban'],
         action: {
             '110011': [],

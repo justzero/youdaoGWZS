@@ -7,7 +7,12 @@
 		css = document.createElement('link');
 		css.type = 'text/css';
 		css.rel = 'stylesheet';
-		css.href = consts.baseCss + consts.commonCssName + cache.conf.browser + '.css';
+		if (!cache.conf.backCompat){
+		    css.href = consts.baseCss + consts.commonCssName + cache.conf.browser + '.css';
+			if (cache.conf.ie === 6)
+		    css.href = consts.baseCss + consts.commonCssName + cache.conf.browser + '_6.css';
+		} else
+			css.href = consts.baseCss + consts.commonCssName + 'ie_bc.css';
 		document.getElementsByTagName('head')[0].appendChild(css);
 		var div = document.createElement('div');
 		div.className = 'youdaoGWZSTestCss';
@@ -29,8 +34,10 @@
 				100);
 			}
 		};
-		if (!cache.conf.backCompat) 
+		//if (!cache.conf.backCompat)
 		    CSSload(css, callback.success);
+		//else
+		//	alert('this is a bad page!');
 	};
 })(youdao);
 

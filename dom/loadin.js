@@ -7,10 +7,6 @@
 	    cache.dom.elem.append = $.dom.append;
 	    var elem = cache.dom.elem.append('div', { id: consts.elemId, className: cache.conf.position }, { }, '' ),
 	    showDiv = cache.dom.elem.append('div', { id: consts.elemId + 'Show' }, { }, '' ); 	    
-		if (cache.conf.ie !== 6) {
-	        elem.style.position = 'fixed';
-	        showDiv.style.position = 'fixed';
-	    };
         showDiv.onmouseover = function() {
             $.ctrl.cleanTime();
         };
