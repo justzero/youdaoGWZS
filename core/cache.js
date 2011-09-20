@@ -10,6 +10,7 @@
 		showLen: 3,
 		searchData: '请输入想查找的商品',
 		taobao: false,
+		title: document.title,
 		cateGory: 'wu',
 		product: 'product'
 		};

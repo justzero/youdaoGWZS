@@ -4,17 +4,14 @@
 	cache.nosyn.loadin = true;
 	m.loadin = function( callback ) {
 	    var  dom = $.require_module('youdao.dom'), consts = $.require_module('youdao.consts');
-	    cache.dom.elem.append = $.dom.append;
-	    var elem = cache.dom.elem.append('div', { id: consts.elemId, className: cache.conf.position }, { }, '' ),
-	    showDiv = cache.dom.elem.append('div', { id: consts.elemId + 'Show' }, { }, '' ); 	    
+	    elem = cache.dom.elem;
+	    showDiv = cache.dom.show;
         showDiv.onmouseover = function() {
             $.ctrl.cleanTime();
         };
         showDiv.onmouseout = function() {
             $.ctrl.delayClean(consts.showTime * 1000);
         };
-	    cache.dom.elem = elem;
-	    cache.dom.show = showDiv;
 	    var data = { name: consts.commonName };
 	    //console.log(youdao.tm);
 	    elem.innerHTML = $.tmpl( $.tm.load,  data);
