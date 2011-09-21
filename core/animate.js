@@ -59,6 +59,7 @@
         var util = $.require_module('youdao.util');
         var spd = {'vFast': 100, 'fast': 150, 'normal': 400, 'slow': 800},
             t = 0,
+			timerId,
             b = attr[1],
             c = attr[2] - attr[1],
             f = 15,
@@ -70,22 +71,25 @@
             if(t < d){
                 elem.style[attr[0]] = (Math.ceil(Tween.Quad[atype](t,b,c,d)))+_unit;
                 t += s;
-                window.setTimeout(run, f);
+                //window.setTimeout(run, f);
             }else{
+				clearInterval(timerId);
                 elem.style[attr[0]] = attr[2]+_unit;
                 if(util.isFunction(callback)){
                     callback.call(context);
                 }
             }
         };
+		
 		function fade(){
 			if (t < d){
 				var value = Math.ceil(Tween.Quad[atype](t,b,c,d));
 				elem.style.opacity = value / 100;
 				elem.style.fiter = 'alpha(opacity=' + value + ')';
 				t += s;
-				window.setTimeout(fade, f);
+				//window.setTimeout(fade, f);
 			} else {
+				clearInterval(timerId);
 				elem.style.opacity = attr[2] / 100;
 				elem.style.filter = 'alpha(opacity=' + attr[2] + ')';
 				if(util.isFunction(callback)){
@@ -93,8 +97,10 @@
 				}
 			}
 		};
-        if (attr[0] === 'fade') {fade();}
-		else run();
+        if (attr[0] === 'fade') {
+			timerId = window.setInterval(fade, f);
+		}
+		else timerId = window.setInterval(run, f);
     }
     
 })(youdao);
