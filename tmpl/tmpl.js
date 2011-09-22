@@ -488,7 +488,7 @@
 			var div = cache.dom.show,
 			dom = $.require_module('youdao.dom'),
 			str = $.tm.popo({
-				leftX: 280,
+				leftX: 180,
 				type: 2
 			},
 			youdao.tm.info.taobao),
@@ -618,7 +618,7 @@
 					logo: '商城报价'
 				},
 				str = $.tm.popo({
-					leftX: 110,
+					leftX: 10,
 					type: 2
 				},
 				$.tm.info.morePrice),
@@ -788,7 +788,7 @@
 			} else {
 				cache.dom.bodyWidth = (document.documentElement.clientWidth) ? document.documentElement.clientWidth: document.body.clientWidth;
 			};
-			cache.dom.contentWidth = (cache.conf.ie === 6) ? Math.ceil(cache.dom.bodyWidth - 160) : Math.ceil(cache.dom.bodyWidth - 152);
+			cache.dom.contentWidth = (cache.conf.ie === 6) ? Math.ceil(cache.dom.bodyWidth - 160) : Math.ceil(cache.dom.bodyWidth - 154);
 			document.getElementById(consts.commonName + 'contentBar').style.width = cache.dom.contentWidth + 'px';
 			var tmpW, sub = 0,
 			i = 0,
