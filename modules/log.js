@@ -15,10 +15,9 @@
 				toSite: elem.getAttribute('href') || 'none',
 				product: cache.conf.product,
 				position: elem.getAttribute('ps') || 'no-position',
-				'@browserType': cache.conf.browser,
+                browser: cache.conf.browser,
 				version: cache.conf.version,
 				vendor: cache.conf.vendor,
-				'@priceUpdated': elem.getAttribute('updated') || 'no-update',
 				cateGory: cache.conf.cateGory
 			};
 			if (elem.tagName === 'INPUT' && elem.getAttribute('type') === 'submit' && json.toSite === "none") {

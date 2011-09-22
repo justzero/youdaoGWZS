@@ -488,7 +488,8 @@
 			var div = cache.dom.show,
 			dom = $.require_module('youdao.dom'),
 			str = $.tm.popo({
-				leftX: 180,
+				leftX: 220, //ie
+				//leftX: 180, //chrome
 				type: 2
 			},
 			youdao.tm.info.taobao),
@@ -618,7 +619,8 @@
 					logo: '商城报价'
 				},
 				str = $.tm.popo({
-					leftX: 10,
+					leftX: 60, //ie
+					// leftx: 20, //chrome
 					type: 2
 				},
 				$.tm.info.morePrice),
