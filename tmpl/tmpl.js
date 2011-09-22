@@ -529,7 +529,7 @@
 													<% var num = data[i].num; %>\
 													<a href="<%=data[i].items[num].url%>" clkAction="CLICK_ MORE_MERCHANT" rel="shop" target="_blank">\
 													<%=data[i].siteName%><% if (data[i].famous) { %>\
-													<img src="http://e.gouwu.youdao.com/images/extension_2_0/famous.png" class="famous"/>\
+													<img src="http://zhushou.youdao.com/images/extension_2_0/famous.png" class="famous"/>\
 													<%}%>\
 													</a>\
 												</td>\
@@ -565,7 +565,7 @@
 													<a href="<%=data[i].items[num].url%>" rel="shop" clkAction="CLICK_ MORE_MERCHANT" style="color: #b2b2b2;" target="_blank">\
 													<%=data[i].siteName%>\
 													<% if (data[i].famous) { %>\
-													<img src="http://e.gouwu.youdao.com/images/extension_2_0/famous.png" class="famous"/>\
+													<img src="http://zhushou.youdao.com/images/extension_2_0/famous.png" class="famous"/>\
                                             		<%}%>\
 													</a>\
 												</td>\
