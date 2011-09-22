@@ -4,7 +4,7 @@
 	consts = $.require_module('youdao.consts'),
 	util = $.require_module('youdao.util');
 	m.gouwuLog = function() {
-		if (cache.conf.test) return; //test return
+		if (cache.conf.test && !cache.localConf.log) return; //test return
 		var img = new Image();
 		/*** set log ***/
 		var sendLog = function(action, elem) {
