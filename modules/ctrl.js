@@ -22,12 +22,12 @@
                else div.style[i] = 'auto';
             }
 			if (cache.conf.position === 'up') {
-				div.style.top = (cache.conf.ie === 6 || cache.conf.backCompat) ? cache.dom.top + 52 + 'px' : '52px';
-				if (cache.conf.ie === 6) div.style.top = cache.dom.top + 62 + 'px';
+				div.style.top = (cache.conf.ie === 6 || cache.conf.backCompat) ? cache.dom.top + 50 + 'px' : '50px';
+				if (cache.conf.ie === 6 && !cache.conf.backCompat) div.style.top = cache.dom.top + 60 + 'px';
 				div.style.bottom = 'auto';
 			} else {
-				div.style.bottom = (cache.conf.ie === 6 || cache.conf.backCompat) ? cache.dom.bottom + 52 + 'px' : '52px';
-				if (cache.conf.ie === 6) div.style.bottom = cache.dom.bottom + 62 + 'px';
+				div.style.bottom = (cache.conf.ie === 6 || cache.conf.backCompat) ? cache.dom.bottom + 50 + 'px' : '50px';
+				if (cache.conf.ie === 6 && !cache.conf.backCompat) div.style.bottom = cache.dom.bottom + 60 + 'px';
 				div.style.top = 'auto';
 			}
             div.innerHTML = html;

@@ -32,8 +32,8 @@
 			var json = util.urlToJson(options.innerHTML, ";");
 			cache.localConf = json;
 			testMod(json);
-			if (json.position) cache.conf.position = json.position;
-			if (json.browser) cache.conf.browser = json.browser;
+			for (var item in json)
+				if (cache.conf[item]) cache.conf[item] = json[item];
 		}
 		var w = cache.dom.body.style.width;
 		cache.dom.body.style.width = '100%';
