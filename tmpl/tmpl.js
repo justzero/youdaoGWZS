@@ -39,6 +39,7 @@
     </div>\
     <span id="<%=name%>close" class="close" style="display: none;" clkAction="CLOSE" ref="close"> </span>\
     <span id="<%=name%>lowPrice" ref="end"> </span>\
+    <span id="<%=name%>sameTypeTip" ref="end"> <span id="<%=name%>sameTypeTipContent"></span> </span>\
 	</div>\
 	<span class="youdaoGWBar_right"></span>\
 ';
@@ -66,8 +67,7 @@
 						cache.dom.elem.style.overflow = div.style.overflow = 'visible';
 						close.name = '0';
 						$.tm.lowPriceResize();
-						/*var eSMax = document.getElementById(name + 'searchMax');
-						if (eSMax) eSMax.style.display = 'block';*/
+						$.tm.sameTypeTip('block');
 					},
 					context: this
 				};
@@ -75,10 +75,8 @@
 			} else { // close animation
 				div.style.overflow = 'hidden';
 				$.tm.lowPriceResize('none');
+				$.tm.sameTypeTip('none');
 				if (cache.dom.fDiv && cache.dom.fDiv.style.display !== 'none') cache.dom.fDiv.style.display = 'none';
-				/*	var eSMax = document.getElementById(name + 'searchMax');
-				if (eSMax) eSMax.style.display = 'none';
-			*/
 				json = {
 					elem: div.id,
 					attr: ['width', cache.dom.contentWidth, 1, 'px'],
@@ -887,12 +885,10 @@
 					if (document.body.style.marginTop === '50px' && cache.dom.elem.className === 'down') {
 						options.attr = ['marginTop', 50, 0, 'px'];
 						$.addAnimate(options);
-						//document.body.style.marginTop = 'auto';
 					};
 					if (document.body.style.marginTop !== '50px' && cache.dom.elem.className === 'up') {
 						options.attr = ['marginTop', 0, 50, 'px'];
 						$.addAnimate(options);
-						//document.body.style.marginTop = '50px';
 					};
 				});
 			});
@@ -903,30 +899,95 @@
 			icon = document.getElementById(consts.commonName + 'icon');
 			div.style.width = 0;
 			div.style.overflow = 'hidden';
-			//document.getElementById(name + 'searchMax').style.display = 'none';
 			div.style.display = 'none';
 			close.className = 'open';
 			close.name = '1';
 			icon.className = 'show';
+		},
+		'111100': function() {
+			cache.dom.bodyMarginTop = (mTop = document.body.style.marginTop) ? mTop: 'auto';
+			var options = {
+				elem: 'body',
+				attr: ['marginTop', 0, 50, 'px'],
+				timer: 'vFast',
+				atp: 'Line',
+				context: this,
+				callback: function() {}
+			};
+			if (cache.conf.position === 'up') {
+				$.addAnimate(options);
+			};
+			$.event.addEvent(document.getElementById(consts.commonName + 'close'), 'click', function() {
+				if (document.getElementById(consts.commonName + 'close').className === 'close' && cache.dom.elem.className === 'up') {
+					options.attr = ['marginTop', 50, 0, 'px'];
+					$.addAnimate(options);
+				};
+				if (document.getElementById(consts.commonName + 'close').className === 'open' && cache.dom.elem.className === 'up') {
+					options.attr = ['marginTop', 0, 50, 'px'];
+					$.addAnimate(options);
+				};
+			});
+			$.event.addEvent(document.getElementById(consts.commonName + 'conf'), 'click', function() {
+				if (cache.dom.show.style.display === 'none') return;
+				var set = document.getElementById(consts.commonName + 'set');
+				if (!set) return;
+				$.event.addEvent(set, 'click', function() {
+					if (set.className === 'non') return;
+					var options = {
+						elem: 'body',
+						attr: ['marginTop', 0, 50, 'px'],
+						timer: 'vFast',
+						atp: 'Line',
+						context: this,
+						callback: function() {}
+					};
+					if (document.body.style.marginTop === '50px' && cache.dom.elem.className === 'down') {
+						options.attr = ['marginTop', 50, 0, 'px'];
+						$.addAnimate(options);
+					};
+					if (document.body.style.marginTop !== '50px' && cache.dom.elem.className === 'up') {
+						options.attr = ['marginTop', 0, 50, 'px'];
+						$.addAnimate(options);
+					};
+				});
+			});
 		}
 	};
 
 	/***
  * 新功能引导 模版 
  * */
-	$.tm.features.tmple = '<ul>\
-                                        <li class="fts1">功能提示</li>\
-                                        <li class="fts2"><%=info[0]%></li>\
-                                        <li class="fts3"><%=info[1]%>\
-                                        <span style="font-Weight: bold;">功能展示:</span><br/><%=info[2]%></li>\
-                                        <li class="fts4"><a href="" style="">查看功能详情>></a><input type="button" id="ftsBt" value="我知道了"\></li></ul>';
+	$.tm.features.tmple = '<ul class="feature">\
+                                        <li class="fts1"><span class="ftLogo"></span>功能提示</li>\
+                                        <li class="fts2"><div class="ftContent">\
+                                        	<div class="ftContent1"><%=info[0]%> </div>\
+                                        	<div class="ftContent2"><%=info[1]%> </div>\
+                                        </div></li>\
+                                        <li class="fts3"><div style="margin:5px 0px;"><span class="ftsName"><%=info[2]%></span>\
+                                        	<span class="ftsDes">功能简介:</span></div>\
+                                        	<span class="ftsDesInfo"><%=info[3]%></span>\
+                                        </li>\
+                                        <li class="fts4">\
+                                        	<a href="<%=info[4]%>" target="_blank" clkAction="CLICK_FEATURE_HELP">查看功能详情>></a>\
+                                        	<input id="ftsBt" type="button" clkAction="CLICK_FEATURE_USE" value="马上试用"/>\
+                                        </li></ul>';
 	$.tm.features.event = function(fDiv) {
 		$.event.addEvent(document.getElementById('ftsBt'), 'click', function() {
 			var util = $.require_module('youdao.util');
+			
+			//log
+			var sameTypeNum = cache.data.sameType.sameTypeNum ;
+//			this.setAttribute('href', 'http://s.taobao.com/search?sameTypeNum='+sameTypeNum );
+			
 			fDiv.style.display = 'none';
 			var code = $.conf.features[++cache.conf.flag - 1];
 			$.tm.event[code] = $.tm.event.tmp;
 			$.tm.event.tmp();
+			// write the local storage 
+			var sE = document.getElementById(consts.optionsID);
+			cache.localConf.featureCode = util.setFtCode('',cache.conf.flag,true) ;
+			console.log(cache.localConf);
+			if (sE && cache.localConf) sE.innerHTML = util.jsonToStr(cache.localConf, ';');
 			cache.dom.elem.flag = (cache.conf.flag <= $.conf.features.length) ? cache.conf.flag: 0;
 		});
 		fDiv.closeFdiv = function() {
@@ -939,7 +1000,4 @@
 	};
 
 })(youdao);
-/* * *
- * this is a djwijq
- * */
 

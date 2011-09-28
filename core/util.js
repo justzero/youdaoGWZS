@@ -16,11 +16,29 @@
 		isArray: function(arr) {
 			return toStr.call(arr) === "[object Array]";
 		},
+		isInArray:function(arr,ele){
+			if( !this.isArray(arr)){
+				return false ;
+			}
+			for(var i=0;i<arr.length;i++){
+				if(arr[i] == ele){
+					return true ;
+				}
+			}
+			return false ;
+		},
 		isEmptyObject: function(obj) {
 			for (var k in obj) {
 				if (obj.hasOwnProperty(k)) return false;
 			}
 			return true;
+		},
+		getNumberLength:function(num){
+			if( isNaN(num) ){
+				return 0;
+			}
+			num = num<0?-num:num ;
+			return Math.floor(Math.log(num)/Math.log(10))+1 ;
 		},
 		trim: function(text) {
 			return (text || "").replace(/^\s+|\s+$/g, "");
@@ -60,6 +78,27 @@
 				obj[e[0]] = e.length === 1 ? '': e[1];
 			}
 			return obj;
+		},
+		/***
+		 * set the feature code .
+		 * St.  setFtCode('000100',0,true)  return '100100'
+		 * 		setFtCode('000100',2,true)  return '001100'
+		 * 		setFtCode('100100',0,false)  return '000100'
+		 */
+		setFtCode: function( ftCode , num , flag ){
+			var length = ftCode ? ftCode.length: 0 , code = '';
+			if( num >= length ){
+				code = ftCode ;
+				for( var i=0;i<num-length;i++){
+					code += '0';
+				}
+				code += flag?'1':'0';
+				return code ;
+			}
+			code = ftCode.substring(0,num);
+			code += flag?'1':'0' ;
+			code += ftCode.substring(num+1>=length?length:num+1,length);
+			return code ;
 		}
 	};
 

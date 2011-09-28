@@ -5,6 +5,7 @@
 	m.gouwuInit = function(callback) {
 		var util = $.require_module('youdao.util'),
 		consts = $.require_module('youdao.consts'),
+		features = $.require_module('youdao.consts'),
 		elem = cache.dom.elem,
 		str = '',
 		div = document.getElementById(consts.commonName + 'contentBar'),
@@ -27,6 +28,32 @@
 			value: cache.conf.searchData
 		};
 		var features = $.conf.features;
+		//set features show flag
+		
+		/***
+		 * get features to be shown no
+		 * 0:表示无新特征提示
+		 * i:表示要显示的新特征提示为：features[i-1]
+		 */
+		var getFeatureNo = function(){
+        	var localFtCode = '' , ftCode = $.conf.featuresCode ,length = Math.min(localFtCode.length , ftCode.length) ;
+        	for(var i = 0 ; i < length; i++){
+        		if( ftCode.charAt(i)==='1' && localFtCode.charAt(i)==='0' ){
+        			return (i+1) ;
+        		}
+        	}
+        	if( localFtCode.length < ftCode.length ){
+        		// to be done ----将localFtCode补全（即补零）lazy way
+        		for(;i<ftCode.length;i++){
+        			if( ftCode.charAt(i)==='1' ){
+        				return (i+1) ;
+        			}
+        		}
+        	}
+        	return 0 ;
+        } ;
+        cache.conf.flag = getFeatureNo() ;
+        
 		if (cache.conf.flag) {
 			$.tm.event.tmp = $.tm.event[features[cache.conf.flag - 1]];
 			$.tm.event[features[cache.conf.flag - 1]] = function() {};

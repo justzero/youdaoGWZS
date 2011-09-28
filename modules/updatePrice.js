@@ -115,6 +115,8 @@
 		for (var i = 0; i < cache.conf.showLen; i++) arrS.push(i);
 		qPrice(arrS);
 	};
-	if (!cache.localConf || ! cache.localConf.update || cache.localConf.update !== 'false') $.conf.action['110011'].push('youdao.modules.updatePrice');
+	if (!cache.localConf || ! cache.localConf.update || cache.localConf.update !== 'false') {
+		$.conf.action['110011'].push('youdao.modules.updatePrice');
+	}
 })(youdao);
 
