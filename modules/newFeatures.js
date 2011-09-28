@@ -17,13 +17,14 @@
                     
                     cache.dom.fDiv = fDiv;
                     fDiv.flag = cache.conf.flag;
-                    if (elem.className === 'noMore') {
+                    if (elem && elem.className === 'noMore') {
                         var code = $.conf.features[cache.conf.flag - 1];
                         $.tm.event[code] = $.tm.event.tmp;
                         $.tm.event.tmp();
                         return;
                     }
                     if (cache.conf.ie !== 6) fDiv.style.position = 'fixed';
+					console.log(elem);
                     var attr = {
                         width: 280,
                         height: 'auto',
@@ -52,6 +53,5 @@
             showFeatures(cache.conf.flag -1);
         };
     };
-//    $.conf.action['110011'].push('youdao.modules.newFeatures');
     $.conf.action['111100'].push('youdao.modules.newFeatures');
 })(youdao);

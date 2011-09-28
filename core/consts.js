@@ -22,7 +22,7 @@
 		commonName: "gouwu_",
 		showTime: .2,
 		baseUrl_test: "./server/",
-		serUrl_test: "data1.js",
+		serUrl_test: "data6.js",
 		baseCss_test: "./css/",
 		commonCssName_test: ""
 	};

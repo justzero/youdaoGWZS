@@ -487,7 +487,8 @@
 			dom = $.require_module('youdao.dom'),
 			str = $.tm.popo({
 				//leftX: 220, //ie
-				leftX: 180, //chrome
+				leftX: 180,
+				//chrome
 				type: 2
 			},
 			youdao.tm.info.taobao),
@@ -618,7 +619,8 @@
 				},
 				str = $.tm.popo({
 					//leftX: 60, //ie
-					leftx: 20, //chrome
+					leftx: 20,
+					//chrome
 					type: 2
 				},
 				$.tm.info.morePrice),
@@ -727,7 +729,7 @@
 					}
 					if (cache.conf.backCompat) {
 						cache.dom.top = document.body.scrollTop;
-						cache.dom.elem.style.top =cache.dom.top + 'px';
+						cache.dom.elem.style.top = cache.dom.top + 'px';
 						cache.dom.elem.style.bottom = 'auto';
 					}
 					if (e = document.getElementById(name + 'features')) {
@@ -790,33 +792,36 @@
 			};
 			cache.dom.contentWidth = (cache.conf.ie === 6) ? Math.ceil(cache.dom.bodyWidth - 160) : Math.ceil(cache.dom.bodyWidth - 152);
 			document.getElementById(consts.commonName + 'contentBar').style.width = cache.dom.contentWidth + 'px';
-			var tmpW, sub = 0,
-			i = 0,
-			mLeft = 0;
-			if (!cache.data.douban || ! cache.data.douban.doubanReview || ! cache.data.douban.doubanReview.summary) {
-				tmpW = cache.dom.bodyWidth - 500;
-			} else {
-				tmpW = cache.dom.bodyWidth - 600;
+			if (cache.data.code === '110000') {
+				var tmpW, sub = 0,
+				i = 0,
+				mLeft = 0;
+				if (!cache.data.douban || ! cache.data.douban.doubanReview || ! cache.data.douban.doubanReview.summary) {
+					tmpW = cache.dom.bodyWidth - 500;
+				} else {
+					tmpW = cache.dom.bodyWidth - 600;
+				}
+				while (i < cache.data.urlPriceList.length && sub < tmpW) {
+					sub += cache.data.urlPriceList[i++].len;
+				}
+				if (sub >= tmpW) cache.conf.showLen = (i > 1) ? i - 1: 0;
+				else cache.conf.showLen = i;
+				if (cache.conf.showLen > 3) cache.conf.showLen = 3;
+				var priceElem = document.getElementById(consts.commonName + 'priceData');
+				if (priceElem) priceElem.innerHTML = $.tmpl($.tm.onePrice, {
+					data: cache.data,
+					name: consts.commonName,
+					len: cache.conf.showLen
+				});
+				if (cache.data.urlPriceList.length - cache.conf.showLen > 0) {
+					document.getElementById(consts.commonName + 'morePrice').className = '';
+					document.getElementById(consts.commonName + 'morePrice').title = '';
+				} else {
+					document.getElementById(consts.commonName + 'morePrice').className = 'noMore';
+					document.getElementById(consts.commonName + 'morePrice').title = '暂无其他商城报价信息';
+				}
+				$.tm.event.priceData();
 			}
-			while (i < cache.data.urlPriceList.length && sub < tmpW) {
-				sub += cache.data.urlPriceList[i++].len;
-			}
-			if (sub >= tmpW) cache.conf.showLen = (i > 1) ? i - 1: 0;
-			else cache.conf.showLen = i;
-			if (cache.conf.showLen > 3) cache.conf.showLen = 3;
-			document.getElementById(consts.commonName + 'priceData').innerHTML = $.tmpl($.tm.onePrice, {
-				data: cache.data,
-				name: consts.commonName,
-				len: cache.conf.showLen
-			});
-			if (cache.data.urlPriceList.length - cache.conf.showLen > 0) {
-				document.getElementById(consts.commonName + 'morePrice').className = '';
-				document.getElementById(consts.commonName + 'morePrice').title = '';
-			} else {
-				document.getElementById(consts.commonName + 'morePrice').className = 'noMore';
-				document.getElementById(consts.commonName + 'morePrice').title = '暂无其他商城报价信息';
-			}
-			$.tm.event.priceData();
 		};
 		reSizeWin();
 		$.event.addEvent(window, 'resize', reSizeWin);
@@ -974,18 +979,17 @@
 	$.tm.features.event = function(fDiv) {
 		$.event.addEvent(document.getElementById('ftsBt'), 'click', function() {
 			var util = $.require_module('youdao.util');
-			
+
 			//log
-			var sameTypeNum = cache.data.sameType.sameTypeNum ;
-//			this.setAttribute('href', 'http://s.taobao.com/search?sameTypeNum='+sameTypeNum );
-			
+			var sameTypeNum = cache.data.sameType.sameTypeNum;
+			//			this.setAttribute('href', 'http://s.taobao.com/search?sameTypeNum='+sameTypeNum );
 			fDiv.style.display = 'none';
 			var code = $.conf.features[++cache.conf.flag - 1];
 			$.tm.event[code] = $.tm.event.tmp;
 			$.tm.event.tmp();
 			// write the local storage 
 			var sE = document.getElementById(consts.optionsID);
-			cache.localConf.featureCode = util.setFtCode('',cache.conf.flag,true) ;
+			cache.localConf.featureCode = util.setFtCode('', cache.conf.flag, true);
 			console.log(cache.localConf);
 			if (sE && cache.localConf) sE.innerHTML = util.jsonToStr(cache.localConf, ';');
 			cache.dom.elem.flag = (cache.conf.flag <= $.conf.features.length) ? cache.conf.flag: 0;
