@@ -7,7 +7,7 @@
         '110000': ['searchMax','conf'],
         '111100': ['searchMin', 'sameType', 'conf' ,'taobao','morePrice',  'resize'],
         features: ['sameType'],
-        featuresCode:'0',
+        featuresCode:'1',
         action: {
             '110011': [],
             '110000': [],

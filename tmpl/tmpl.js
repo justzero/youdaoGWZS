@@ -315,7 +315,7 @@
 								<span class="<%if(hasSameType){%>sameTypeNumber<%}else{ %>sameTypeNumberNo<%}%>"><%=sameTypeNum%></span>\
 								<span class="<%if(hasSameType){%>sameTypeContent<%}else{ %>sameTypeContentNo<%}%>">件</span></td>\
 								<td style="vertical-align:middle;"><span class="sameTypeLink">\
-								<% if(hasSameType){%><a id="<%=name%>sameTypeBt" class="sameTypeBtEnable" href="<%=sameTypeUrl%>" target="_blank" clkAction="CLICK_SAMETYPE" title="查看同款服饰"><%}else {%><a class="sameTypeBtDisable" target="_blank"> <%}%>去看看</a></span></td></tr></table> </li>\
+								<% if(hasSameType){%><a id="<%=name%>sameTypeBt" class="sameTypeBtEnable" href="<%=sameTypeUrl%>" target="_blank" clkAction="CLICK_SAMETYPE" title="查看同款服饰"><%}else {%><a id="<%=name%>sameTypeBt" class="sameTypeBtDisable" target="_blank"> <%}%>去看看</a></span></td></tr></table> </li>\
 								<li class="sameType2">\
 								<span class="similarType">相似款式:</span>\
 								<form id="<%=name%>sameTypeForm" action="http://s.taobao.com/search" target="_blank" method="get" accept-charset="gbk"><div>\
