@@ -38,6 +38,7 @@
 		var options = document.getElementById(consts.optionsID);
 		if (options) {
 			var json = util.urlToJson(options.innerHTML, ";");
+			changeV(json);
 			cache.localConf = json;
 			testMod(json);
 			for (var item in json)
