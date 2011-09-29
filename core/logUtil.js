@@ -16,8 +16,7 @@
 	            browser: cache.localConf.browser || cache.conf.browser,
 				version: cache.conf.version,
 				vendor: cache.conf.vendor,
-				cateGory: cache.conf.cateGory,
-				parameters: elem.getAttribute('params') || 'no-parameters' ,
+				cateGory: cache.conf.cateGory
 			};
 			if (elem.tagName === 'INPUT' && elem.getAttribute('type') === 'submit' && json.toSite === "none") {
 				if (json.toSite === 'none') return true;
@@ -26,7 +25,14 @@
 			if (elem.className === 'non' || elem.className === 'noMore') {
 				return true;
 			}
-			img.src = consts.logUrl + '?' + util.comboParams(json);
+			var params , parameters = elem.getAttribute('params') || 'no-parameters' ;
+			if( parameters === 'no-parameters' ){
+				params = util.comboParams(json) ;
+			}else{
+				params = util.comboParams(json) + parameters ;
+			}
+			
+			img.src = consts.logUrl + '?' + params ;
 			return true;
 		}
 	};

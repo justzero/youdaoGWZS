@@ -17,19 +17,31 @@
                     
                     cache.dom.fDiv = fDiv;
                     fDiv.flag = cache.conf.flag;
-                    if (elem && elem.className === 'noMore') {
+                    if (elem.className === 'noMore') {
                         var code = $.conf.features[cache.conf.flag - 1];
                         $.tm.event[code] = $.tm.event.tmp;
                         $.tm.event.tmp();
                         return;
                     }
                     if (cache.conf.ie !== 6) fDiv.style.position = 'fixed';
-					console.log(elem);
+                    var elemP = dom.pageX(elem) , elemWidth = elem.offsetWidth , leftX, pageWidth = cache.dom.bodyWidth -10;                    
                     var attr = {
-                        width: 280,
+                        width: 282,
                         height: 'auto',
-                        left: dom.pageX(elem) - elem.offsetWidth*2/3
+                        left: dom.pageX(elem) - elemWidth*2/3
                     };
+                    attr.left = elemP + elemWidth/2 - attr.width/3 ;
+                	leftX = elemWidth/3 -12;
+                    if( elemP < attr.width ){
+                    	attr.left = elemP + elemWidth/2 - attr.width/3 ;
+                    	leftX = attr.width/3 -12;
+                    }
+                    if(elemP + attr.width > pageWidth ){
+                    	attr.left = pageWidth - attr.width ;
+                    	leftX = attr.width - ( pageWidth- (elemP+elemWidth/2))-12 ;
+                    }
+                    console.log('left:'+attr.left);
+                    console.log('leftX:'+leftX );
                     if (!cache.conf.position || cache.conf.position === 'down') {
                     	attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2 : 'auto'; attr.bottom = 55;
                     }else { 
@@ -41,17 +53,18 @@
                         else fDiv.style[i] = 'auto';
                     }
                     fDiv.className = 'features';
-                    var str = $.tm.popo({leftX: 100, type: 1}, $.tm.features.tmple);
-                    fDiv.innerHTML = $.tmpl( str ,{info: tipWord[item]});
+                    var str = $.tm.popo({leftX: leftX, type: 1}, $.tm.features.tmple);
+                    fDiv.innerHTML = $.tmpl( str ,{info: tipWord[item]?tipWord[item]:tipWord['default']});
                     $.tm.features.event(fDiv);
+                    
             };
             var tipWord = {
-            	"sameType":['有道购物助手为您在淘宝找到:',cache.data.sameType.sameTypeNum+'件 同款服饰','同款服饰','浏览淘宝服饰页面时自动为您查找淘宝同款。','http://youdao.com'],
-            	"searchMin":['有道购物助手为您在淘宝找到:','搜索','搜索','为您检索购物。','http://s.youdao.com'],
-            	"morePrice":['有道购物助手为您在淘宝找到:','搜索','搜索','为您检索购物。','http://s.youdao.com']
+            	"sameType":['有道购物助手为您在淘宝找到:',cache.data.sameType.sameTypeNum+'件 同款服饰','同款服饰','浏览淘宝服饰页面时自动为您查找淘宝同款。','http://zhushou.youdao.com/features?keyfrom=help'],
+            	"default":['有道购物助手为您在淘宝找到:','XXX 同款服饰','XXXX','浏览淘宝服饰页面时自动为您查找淘宝同款。','http://zhushou.youdao.com/features?keyfrom=help'],
             };
             showFeatures(cache.conf.flag -1);
         };
     };
+//    $.conf.action['110011'].push('youdao.modules.newFeatures');
     $.conf.action['111100'].push('youdao.modules.newFeatures');
 })(youdao);

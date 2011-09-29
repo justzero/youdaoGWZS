@@ -36,7 +36,7 @@
 		 * i:表示要显示的新特征提示为：features[i-1]
 		 */
 		var getFeatureNo = function(){
-        	var localFtCode = '' , ftCode = $.conf.featuresCode ,length = Math.min(localFtCode.length , ftCode.length) ;
+        	var localFtCode = cache.localConf.featureCode?cache.localConf.featureCode:'' , ftCode = $.conf.featuresCode ,length = Math.min(localFtCode.length , ftCode.length) ;
         	for(var i = 0 ; i < length; i++){
         		if( ftCode.charAt(i)==='1' && localFtCode.charAt(i)==='0' ){
         			return (i+1) ;
@@ -53,6 +53,7 @@
         	return 0 ;
         } ;
         cache.conf.flag = getFeatureNo() ;
+//        console.log('set flag'+cache.conf.flag);
         
 		if (cache.conf.flag) {
 			$.tm.event.tmp = $.tm.event[features[cache.conf.flag - 1]];

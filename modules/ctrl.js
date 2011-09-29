@@ -64,7 +64,11 @@
             consts = $.require_module('youdao.consts'),
             name = consts.commonName,
             div = cache.dom.show;
-			if (div.className === "youdaoGWZSdouban") var tmpE = document.getElementById(name + 'douban');
+            if (div.className === "youdaoGWZSdouban"){ 
+				var tmpE = document.getElementById(name + 'douban');
+			}else if(div.className==="youdaoGWZSsameType"){
+				var tmpE = document.getElementById(name + 'sameType');
+			}
 			else var tmpE = document.getElementById(name + div.className);
 			if (tmpE && tmpE.className === 'enter') tmpE.className = '';
             //div.innerHTML = '';

@@ -301,6 +301,136 @@
 			$.ctrl.delayClean(timer);
 		});
 	};
+	
+	/***
+	 * sameType 模版 
+	 * 同款服饰模板
+	 * */
+		$.tm.sameType = '<span id="<%=name%>sameType"  <%if(!data.sameType){%> class="noMore"<%}%> title="淘宝同款服饰" hoverAction="SHOW_SAMETYPE" ></span>';
+		$.tm.info.sameType = '<ul><li class="sameType1">\
+								<% var hasSameType=false ;if(sameTypeNum && sameTypeNum>0)hasSameType=true;else hasSameType=false;%>\
+								<table><tr><td  colspan="2" style="width:290px"><span class="<%if(hasSameType){%>sameTypeTitle<%}else{ %>sameTypeTitleNo<%}%>">相同款式</span>\
+								<span class="<%if(hasSameType){%>sameTypeNumber<%}else{ %>sameTypeNumberNo<%}%>">:</span>\
+								<%if(hasSameType){%><span class="sameTypeContent">为您找到</span><%}%>\
+								<span class="<%if(hasSameType){%>sameTypeNumber<%}else{ %>sameTypeNumberNo<%}%>"><%=sameTypeNum%></span>\
+								<span class="<%if(hasSameType){%>sameTypeContent<%}else{ %>sameTypeContentNo<%}%>">件</span></td>\
+								<td style="vertical-align:middle;"><span class="sameTypeLink">\
+								<% if(hasSameType){%><a id="<%=name%>sameTypeBt" class="sameTypeBtEnable" href="<%=sameTypeUrl%>" target="_blank" clkAction="CLICK_SAMETYPE" title="查看同款服饰"><%}else {%><a class="sameTypeBtDisable" target="_blank"> <%}%>去看看</a></span></td></tr></table> </li>\
+								<li class="sameType2">\
+								<span class="similarType">相似款式:</span>\
+								<form id="<%=name%>sameTypeForm" action="http://s.taobao.com/search" target="_blank" method="get" accept-charset="gbk"><div>\
+								<input id="<%=name%>searchSimilarInfo" autocomplete="off" name="q" type="text" value="<%=similarTypeWords%>" title="<%=similarTypeWords%>"/>\
+                                <input id="<%=name%>searchSimilarBt" type="submit" clkAction="CLICK_SILIMAR_SAMETYPE" title="搜索相似款式" value="搜相似" />\
+                                </div></form></li></ul>'; 
+		$.tm.event.sameType = function() {
+			var elem = document.getElementById(name + 'sameType'),
+			cache = $.require_module('youdao.cache'),
+			consts = $.require_module('youdao.consts'),
+			util = $.require_module('youdao.util'),
+			timer = consts.showTime * 1000;
+			$.event.addEvent(elem, 'mouseover', function() {
+				if (elem.className === 'noMore') return;
+				var div = cache.dom.show,
+				dom = $.require_module('youdao.dom'),
+				str = $.tm.popo({
+					leftX: 50,
+					type: 2
+				},
+				$.tm.info.sameType),
+				html = $.tmpl(str, {
+					sameTypeNum: cache.data.sameType.sameTypeNum?cache.data.sameType.sameTypeNum:0,
+					sameTypeUrl: cache.data.sameType.sameTypeUrl,
+					similarTypeWords: cache.data.sameType.similarTypeWords,
+					name: consts.commonName,
+					logo: '同款服饰'
+				});;
+				var attr = {
+					css: 'youdaoGWZSsameType',
+					width: 320,
+					height: 'auto',
+					left: dom.pageX(this) - 30
+				};
+				if (div.style.display === 'block' && div.className === 'sameType') {
+					$.ctrl.clean();
+					return;
+				}
+				if (!cache.conf.position || cache.conf.position === 'down') {
+					attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2: 'auto';
+					attr.bottom = 52;
+					attr.left = dom.pageX(this) - 30 ;
+				}else {
+					attr.top = (cache.conf.ie === 6) ? cache.dom.top + 52: 52;
+					attr.bottom = 'auto';
+					attr.left = dom.pageX(this) - 45 ;
+				}
+				$.ctrl.setAttr(attr, html, function() {
+					elem.className = 'enter';
+				});
+				
+				document.getElementById(name + 'sameTypeBt').onclick = function() {
+					var sameTypeNum = cache.data.sameType.sameTypeNum?cache.data.sameType.sameTypeNum:0 ;
+					this.setAttribute('params', 'sameTypeNum='+sameTypeNum);
+					return true ;
+				};
+				
+				document.getElementById(name + 'searchSimilarBt').onclick = function() {
+					var e = document.getElementById(name + 'searchSimilarInfo');
+					var keyWords = util.trim( cache.data.sameType.similarTypeWords ) , isChanged = 0 ,keyWordsChanged = util.trim(e.value);
+					if ((/^\s*$/).test(keyWordsChanged)) {
+						return false ;
+					}
+					if( keyWords != keyWordsChanged ){
+						isChanged = 1 ;
+					}
+					var params =  'keyWords=' + keyWords + '&isChanged=' + isChanged + (isChanged == 1?('&keyWordsChanged='+keyWordsChanged):'') ;
+					this.setAttribute('href', "http://s.taobao.com/search?q="+keyWordsChanged);
+					this.setAttribute('params', params);
+					return true ;
+				};
+			});
+			$.event.addEvent(elem, 'mouseout', function() {
+				$.ctrl.delayClean(timer);
+			});
+		};
+		
+		/***
+		 * 同款服饰数量提示模板
+		 */
+		$.tm.sameTypeTip = function(style){
+			
+			var e = document.getElementById(consts.commonName + 'sameType'),
+			closeCss = document.getElementById(consts.commonName + 'close').className;
+			if (e && cache.data.sameType && cache.data.sameType.sameTypeNum &&cache.data.sameType.sameTypeNum>0 && closeCss !== 'open' ) { //
+				var sameTypeNum = cache.data.sameType.sameTypeNum;
+				e.style.color = '#cc0033';
+				var tip = document.getElementById(consts.commonName + 'sameTypeTip');
+				tip.style.left = (dom.pageX(e) + (e.offsetWidth / 2) - 20) + 'px';
+				tip.style.display = style || 'block';
+				var tipContent = document.getElementById(consts.commonName+'sameTypeTipContent');
+				tipContent.style.display = style || 'block';
+				// calculate the position and content of the same Type tip text.
+				var util = $.require_module('youdao.util');
+				var n = util.getNumberLength(sameTypeNum); // 同款服饰数量位数 
+				var left , content ;
+				if( n > 3 ){
+					left =  (tip.offsetWidth-10*(4+1))/2 + 2 + 'px';
+					content = ">1000件"; 
+				}else{
+					left =  (tip.offsetWidth-10*(n+1))/2 + 'px';
+					content = sameTypeNum+"件"; 
+				}
+//				console.log("left="+left);
+//				console.log("content="+content);
+				tipContent.style.left = left ;
+				tipContent.innerHTML= content ;
+			} else {
+				var tip = document.getElementById(consts.commonName + 'sameTypeTip');
+				tip.style.display = 'none';
+				var tipContent = document.getElementById(consts.commonName+'sameTypeTipContent');
+				tipContent.innerHTML='';
+				tipContent.style.display = 'none';
+			}
+		}
 
 	/***
  * PriceData 模版 
@@ -733,8 +863,22 @@
 						cache.dom.elem.style.bottom = 'auto';
 					}
 					if (e = document.getElementById(name + 'features')) {
-						e.style.top = '35px';
+						e.style.top = '70px';
 						e.style.bottom = 'auto';
+						
+						var ele1 = youdao.dom.getElementsByClass('youdaoGWZS_upPoint','div',document.getElementById(name+'features'));
+						console.log("ele:"+ele1);
+						if( ele1 && ele1.length>0 ){
+							ele1[0].style.display='block';
+						}else{
+							return ;
+						}
+						ele1 = youdao.dom.getElementsByClass('youdaoGWZS_downPoint','div',document.getElementById(name+'features'));
+						if( ele1 && ele1.length>0 ){
+							ele1[0].style.display='none';
+						}else{
+							return ;
+						}
 					};
 				} else {
 					$.ctrl.clean();
@@ -755,6 +899,19 @@
 					if (e = document.getElementById(name + 'features')) {
 						e.style.bottom = '55px';
 						e.style.top = 'auto';
+						var ele1 = youdao.dom.getElementsByClass('youdaoGWZS_upPoint','div',document.getElementById(name+'features'));
+						console.log("ele:"+ele1);
+						if( ele1 && ele1.length>0 ){
+							ele1[0].style.display='none';
+						}else{
+							return ;
+						}
+						ele1 = youdao.dom.getElementsByClass('youdaoGWZS_downPoint','div',document.getElementById(name+'features'));
+						if( ele1 && ele1.length>0 ){
+							ele1[0].style.display='block';
+						}else{
+							return ;
+						}
 					};
 				}
 			});
@@ -960,48 +1117,58 @@
 	};
 
 	/***
- * 新功能引导 模版 
- * */
-	$.tm.features.tmple = '<ul class="feature">\
-                                        <li class="fts1"><span class="ftLogo"></span>功能提示</li>\
-                                        <li class="fts2"><div class="ftContent">\
-                                        	<div class="ftContent1"><%=info[0]%> </div>\
-                                        	<div class="ftContent2"><%=info[1]%> </div>\
-                                        </div></li>\
-                                        <li class="fts3"><div style="margin:5px 0px;"><span class="ftsName"><%=info[2]%></span>\
-                                        	<span class="ftsDes">功能简介:</span></div>\
-                                        	<span class="ftsDesInfo"><%=info[3]%></span>\
-                                        </li>\
-                                        <li class="fts4">\
-                                        	<a href="<%=info[4]%>" target="_blank" clkAction="CLICK_FEATURE_HELP">查看功能详情>></a>\
-                                        	<input id="ftsBt" type="button" clkAction="CLICK_FEATURE_USE" value="马上试用"/>\
-                                        </li></ul>';
-	$.tm.features.event = function(fDiv) {
-		$.event.addEvent(document.getElementById('ftsBt'), 'click', function() {
-			var util = $.require_module('youdao.util');
-
-			//log
-			var sameTypeNum = cache.data.sameType.sameTypeNum;
-			//			this.setAttribute('href', 'http://s.taobao.com/search?sameTypeNum='+sameTypeNum );
-			fDiv.style.display = 'none';
-			var code = $.conf.features[++cache.conf.flag - 1];
-			$.tm.event[code] = $.tm.event.tmp;
-			$.tm.event.tmp();
-			// write the local storage 
-			var sE = document.getElementById(consts.optionsID);
-			cache.localConf.featureCode = util.setFtCode('', cache.conf.flag, true);
-			console.log(cache.localConf);
-			if (sE && cache.localConf) sE.innerHTML = util.jsonToStr(cache.localConf, ';');
-			cache.dom.elem.flag = (cache.conf.flag <= $.conf.features.length) ? cache.conf.flag: 0;
-		});
-		fDiv.closeFdiv = function() {
-			var util = $.require_module('youdao.util');
-			fDiv.style.display = 'none';
-			var code = $.conf.features[cache.conf.flag - 1];
-			$.tm.event[code] = $.tm.event.tmp;
-			$.tm.event.tmp();
-		}
-	};
+	 * 新功能引导 模版 
+	 * */
+		$.tm.features.tmple = '<ul class="feature">\
+	                                        <li class="fts1"><span class="ftLogo"></span>功能提示</li>\
+	                                        <li class="fts2"><div class="ftContent">\
+	                                        	<div class="ftContent1"><%=info[0]%> </div>\
+	                                        	<div class="ftContent2"><%=info[1]%> </div>\
+	                                        </div></li>\
+	                                        <li class="fts3"><div style="margin:5px 0px;"><span class="ftsName"><%=info[2]%></span>\
+	                                        	<span class="ftsDes">功能简介:</span></div>\
+	                                        	<span class="ftsDesInfo"><%=info[3]%></span>\
+	                                        </li>\
+	                                        <li class="fts4">\
+	                                        	<a href="<%=info[4]%>" target="_blank" clkAction="CLICK_FEATURE_HELP">查看功能详情>></a>\
+	                                        	<input id="ftsBt" type="button" clkAction="CLICK_FEATURE_USE" value="我知道了"/>\
+	                                        </li></ul>';
+		$.tm.features.event = function(fDiv) {
+			var logUtil = $.require_module('youdao.logUtil');
+			logUtil.sendLog('SHOW_NEW_FEATURE', new Image());
+			
+			$.event.addEvent(document.getElementById('ftsBt'), 'click', function() {
+				var util = $.require_module('youdao.util');
+				
+				//log
+				if( $.conf.features[cache.conf.flag-1] === 'sameType'){
+					var sameTypeNum = cache.data.sameType.sameTypeNum ;
+					this.setAttribute('params', 'sameTypeNum='+sameTypeNum );
+				}
+				
+				fDiv.style.display = 'none';
+				var code = $.conf.features[cache.conf.flag - 1];
+				$.tm.event[code] = $.tm.event.tmp;
+				$.tm.event.tmp();
+				// write the local storage 
+				var sE = document.getElementById(consts.optionsID);
+				if (sE && cache.localConf) {
+					cache.localConf.featureCode = util.setFtCode(cache.localConf.featureCode?cache.localConf.featureCode:'',cache.conf.flag-1,true) ;
+					sE.innerHTML = util.jsonToStr(cache.localConf, ';');
+				}
+				console.log('cache.dom.elem.flag'+cache.dom.elem.flag);
+				console.log('cache.conf.flag'+cache.conf.flag);
+				cache.conf.flag = 0 ;
+				cache.dom.elem.flag = (cache.conf.flag <= $.conf.features.length) ? cache.conf.flag: 0;
+			});
+			fDiv.closeFdiv = function() {
+				var util = $.require_module('youdao.util');
+				fDiv.style.display = 'none';
+				var code = $.conf.features[cache.conf.flag - 1];
+				$.tm.event[code] = $.tm.event.tmp;
+				$.tm.event.tmp();
+			}
+		};
 
 })(youdao);
 
