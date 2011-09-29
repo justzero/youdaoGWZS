@@ -27,6 +27,14 @@
 				return;
 			};
 		};
+		var changeV = function(json) {
+			if (json.version && /^[0-9\.]+$/.test(json.version)) return;
+			else if (json.vendor && json.version) {
+				var version = json.vendor;
+				json.vendor = json.version;
+				json.version = version;
+			}
+		};
 		var options = document.getElementById(consts.optionsID);
 		if (options) {
 			var json = util.urlToJson(options.innerHTML, ";");
