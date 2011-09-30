@@ -38,7 +38,6 @@
 		    CSSload(css, callback.success);
 		//else
 		//	alert('this is a bad page!');
-		document.getElementById('testBt').innerHTML = 'css Link href : ' + css.href;
 	};
 })(youdao);
 
