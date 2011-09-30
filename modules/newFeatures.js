@@ -8,7 +8,7 @@
                     elem = document.getElementById(consts.commonName + item);
                     
                    //当同款数目为0时，不触发新功能提示；同时将同款服饰按钮的原有事件恢复。
-                    if( item === 'sameType' && ( !cache.data.sameType.sameTypeNum ||cache.data.sameType.sameTypeNum <= 0 )){
+                    if( item === 'sameType' && ( !cache.data.sameType||!cache.data.sameType.sameTypeNum ||cache.data.sameType.sameTypeNum <= 0 )){
                     	var code = $.conf.features[++cache.conf.flag - 1];
             			$.tm.event[code] = $.tm.event.tmp;
             			$.tm.event.tmp();
@@ -40,8 +40,8 @@
                     	attr.left = pageWidth - attr.width ;
                     	leftX = attr.width - ( pageWidth- (elemP+elemWidth/2))-12 ;
                     }
-                    console.log('left:'+attr.left);
-                    console.log('leftX:'+leftX );
+//                    console.log('left:'+attr.left);
+//                    console.log('leftX:'+leftX );
                     if (!cache.conf.position || cache.conf.position === 'down') {
                     	attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2 : 'auto'; attr.bottom = 55;
                     }else { 
@@ -59,7 +59,7 @@
                     
             };
             var tipWord = {
-            	"sameType":['有道购物助手为您在淘宝找到:',cache.data.sameType.sameTypeNum+'件 同款服饰','同款服饰','浏览淘宝服饰页面时自动为您查找淘宝同款。','http://zhushou.youdao.com/features?keyfrom=help'],
+            	"sameType":['有道购物助手为您在淘宝找到:',(cache.data.sameType?(cache.data.sameType.sameTypeNum?cache.data.sameType.sameTypeNum:0):0)+'件 同款服饰','同款服饰','浏览淘宝服饰页面时自动为您查找淘宝同款。','http://zhushou.youdao.com/features?keyfrom=help'],
             	"default":['有道购物助手为您在淘宝找到:','XXX 同款服饰','XXXX','浏览淘宝服饰页面时自动为您查找淘宝同款。','http://zhushou.youdao.com/features?keyfrom=help'],
             };
             showFeatures(cache.conf.flag -1);

@@ -86,6 +86,9 @@
 		 * 		setFtCode('100100',0,false)  return '000100'
 		 */
 		setFtCode: function( ftCode , num , flag ){
+			if( num < 0 ){
+				return ftCode ;
+			}
 			var length = ftCode ? ftCode.length: 0 , code = '';
 			if( num >= length ){
 				code = ftCode ;

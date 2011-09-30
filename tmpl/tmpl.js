@@ -72,6 +72,9 @@
 					context: this
 				};
 				$.addAnimate(json);
+				if (e = document.getElementById(name + 'features')) {
+					if (cache.conf.flag&&util.isFunction(e.openFdiv)) e.openFdiv();
+				};
 			} else { // close animation
 				div.style.overflow = 'hidden';
 				$.tm.lowPriceResize('none');
@@ -350,10 +353,6 @@
 					height: 'auto',
 					left: dom.pageX(this) - 30
 				};
-				if (div.style.display === 'block' && div.className === 'sameType') {
-					$.ctrl.clean();
-					return;
-				}
 				if (!cache.conf.position || cache.conf.position === 'down') {
 					attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2: 'auto';
 					attr.bottom = 52;
@@ -867,7 +866,6 @@
 						e.style.bottom = 'auto';
 						
 						var ele1 = youdao.dom.getElementsByClass('youdaoGWZS_upPoint','div',document.getElementById(name+'features'));
-						console.log("ele:"+ele1);
 						if( ele1 && ele1.length>0 ){
 							ele1[0].style.display='block';
 						}else{
@@ -1156,17 +1154,20 @@
 					cache.localConf.featureCode = util.setFtCode(cache.localConf.featureCode?cache.localConf.featureCode:'',cache.conf.flag-1,true) ;
 					sE.innerHTML = util.jsonToStr(cache.localConf, ';');
 				}
-				console.log('cache.dom.elem.flag'+cache.dom.elem.flag);
-				console.log('cache.conf.flag'+cache.conf.flag);
+//				console.log('cache.dom.elem.flag'+cache.dom.elem.flag);
+//				console.log('cache.conf.flag'+cache.conf.flag);
+				// remember : set flag = 0;
 				cache.conf.flag = 0 ;
 				cache.dom.elem.flag = (cache.conf.flag <= $.conf.features.length) ? cache.conf.flag: 0;
 			});
 			fDiv.closeFdiv = function() {
 				var util = $.require_module('youdao.util');
 				fDiv.style.display = 'none';
-				var code = $.conf.features[cache.conf.flag - 1];
-				$.tm.event[code] = $.tm.event.tmp;
-				$.tm.event.tmp();
+			}
+			fDiv.openFdiv = function() {
+				var util = $.require_module('youdao.util');
+				fDiv.style.display = 'block';
+				
 			}
 		};
 
