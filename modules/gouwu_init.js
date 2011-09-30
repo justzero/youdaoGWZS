@@ -3,6 +3,7 @@
 	cache = $.require_module('youdao.cache');
 	cache.nosyn.gouwuInit = true;
 	m.gouwuInit = function(callback) {
+	console.log('gouwu_init');
 		var util = $.require_module('youdao.util'),
 		consts = $.require_module('youdao.consts'),
 		features = $.require_module('youdao.consts'),

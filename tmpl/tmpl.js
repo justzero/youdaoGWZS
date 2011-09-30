@@ -73,7 +73,7 @@
 				};
 				$.addAnimate(json);
 				if (e = document.getElementById(name + 'features')) {
-					if (cache.conf.flag&&util.isFunction(e.openFdiv)) e.openFdiv();
+					if (cache.conf.flag && util.isFunction(e.openFdiv)) e.openFdiv();
 				};
 			} else { // close animation
 				div.style.overflow = 'hidden';
@@ -304,13 +304,13 @@
 			$.ctrl.delayClean(timer);
 		});
 	};
-	
+
 	/***
 	 * sameType 模版 
 	 * 同款服饰模板
 	 * */
-		$.tm.sameType = '<span id="<%=name%>sameType"  <%if(!data.sameType){%> class="noMore"<%}%> title="淘宝同款服饰" hoverAction="SHOW_SAMETYPE" ></span>';
-		$.tm.info.sameType = '<ul><li class="sameType1">\
+	$.tm.sameType = '<span id="<%=name%>sameType"  <%if(!data.sameType){%> class="noMore"<%}%> title="淘宝同款服饰" hoverAction="SHOW_SAMETYPE" ></span>';
+	$.tm.info.sameType = '<ul><li class="sameType1">\
 								<% var hasSameType=false ;if(sameTypeNum && sameTypeNum>0)hasSameType=true;else hasSameType=false;%>\
 								<table><tr><td  colspan="2" style="width:290px"><span class="<%if(hasSameType){%>sameTypeTitle<%}else{ %>sameTypeTitleNo<%}%>">相同款式</span>\
 								<span class="<%if(hasSameType){%>sameTypeNumber<%}else{ %>sameTypeNumberNo<%}%>">:</span>\
@@ -324,112 +324,114 @@
 								<form id="<%=name%>sameTypeForm" action="http://s.taobao.com/search" target="_blank" method="get" accept-charset="gbk"><div>\
 								<input id="<%=name%>searchSimilarInfo" autocomplete="off" name="q" type="text" value="<%=similarTypeWords%>" title="<%=similarTypeWords%>"/>\
                                 <input id="<%=name%>searchSimilarBt" type="submit" clkAction="CLICK_SILIMAR_SAMETYPE" title="搜索相似款式" value="搜相似" />\
-                                </div></form></li></ul>'; 
-		$.tm.event.sameType = function() {
-			var elem = document.getElementById(name + 'sameType'),
-			cache = $.require_module('youdao.cache'),
-			consts = $.require_module('youdao.consts'),
-			util = $.require_module('youdao.util'),
-			timer = consts.showTime * 1000;
-			$.event.addEvent(elem, 'mouseover', function() {
-				if (elem.className === 'noMore') return;
-				var div = cache.dom.show,
-				dom = $.require_module('youdao.dom'),
-				str = $.tm.popo({
-					leftX: 50,
-					type: 2
-				},
-				$.tm.info.sameType),
-				html = $.tmpl(str, {
-					sameTypeNum: cache.data.sameType.sameTypeNum?cache.data.sameType.sameTypeNum:0,
-					sameTypeUrl: cache.data.sameType.sameTypeUrl,
-					similarTypeWords: cache.data.sameType.similarTypeWords,
-					name: consts.commonName,
-					logo: '同款服饰'
-				});;
-				var attr = {
-					css: 'youdaoGWZSsameType',
-					width: 320,
-					height: 'auto',
-					left: dom.pageX(this) - 30
-				};
-				if (!cache.conf.position || cache.conf.position === 'down') {
-					attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2: 'auto';
-					attr.bottom = 52;
-					attr.left = dom.pageX(this) - 30 ;
-				}else {
-					attr.top = (cache.conf.ie === 6) ? cache.dom.top + 52: 52;
-					attr.bottom = 'auto';
-					attr.left = dom.pageX(this) - 45 ;
+                                </div></form></li></ul>';
+	$.tm.event.sameType = function() {
+		var elem = document.getElementById(name + 'sameType'),
+		cache = $.require_module('youdao.cache'),
+		consts = $.require_module('youdao.consts'),
+		util = $.require_module('youdao.util'),
+		timer = consts.showTime * 1000;
+		$.event.addEvent(elem, 'mouseover', function() {
+			if (elem.className === 'noMore') return;
+			var div = cache.dom.show,
+			dom = $.require_module('youdao.dom'),
+			str = $.tm.popo({
+				leftX: 50,
+				type: 2
+			},
+			$.tm.info.sameType),
+			html = $.tmpl(str, {
+				sameTypeNum: cache.data.sameType.sameTypeNum ? cache.data.sameType.sameTypeNum: 0,
+				sameTypeUrl: cache.data.sameType.sameTypeUrl,
+				similarTypeWords: cache.data.sameType.similarTypeWords,
+				name: consts.commonName,
+				logo: '同款服饰'
+			});;
+			var attr = {
+				css: 'youdaoGWZSsameType',
+				width: 320,
+				height: 'auto',
+				left: dom.pageX(this) - 30
+			};
+			if (!cache.conf.position || cache.conf.position === 'down') {
+				attr.top = (cache.conf.ie === 6) ? cache.dom.top - attr.height - 2: 'auto';
+				attr.bottom = 52;
+				attr.left = dom.pageX(this) - 30;
+			} else {
+				attr.top = (cache.conf.ie === 6) ? cache.dom.top + 52: 52;
+				attr.bottom = 'auto';
+				attr.left = dom.pageX(this) - 45;
+			}
+			$.ctrl.setAttr(attr, html, function() {
+				elem.className = 'enter';
+			});
+
+			document.getElementById(name + 'sameTypeBt').onclick = function() {
+				var sameTypeNum = cache.data.sameType.sameTypeNum ? cache.data.sameType.sameTypeNum: 0;
+				this.setAttribute('params', 'sameTypeNum=' + sameTypeNum);
+				return true;
+			};
+
+			document.getElementById(name + 'searchSimilarBt').onclick = function() {
+				var e = document.getElementById(name + 'searchSimilarInfo');
+				var keyWords = util.trim(cache.data.sameType.similarTypeWords),
+				isChanged = 0,
+				keyWordsChanged = util.trim(e.value);
+				if ((/^\s*$/).test(keyWordsChanged)) {
+					return false;
 				}
-				$.ctrl.setAttr(attr, html, function() {
-					elem.className = 'enter';
-				});
-				
-				document.getElementById(name + 'sameTypeBt').onclick = function() {
-					var sameTypeNum = cache.data.sameType.sameTypeNum?cache.data.sameType.sameTypeNum:0 ;
-					this.setAttribute('params', 'sameTypeNum='+sameTypeNum);
-					return true ;
-				};
-				
-				document.getElementById(name + 'searchSimilarBt').onclick = function() {
-					var e = document.getElementById(name + 'searchSimilarInfo');
-					var keyWords = util.trim( cache.data.sameType.similarTypeWords ) , isChanged = 0 ,keyWordsChanged = util.trim(e.value);
-					if ((/^\s*$/).test(keyWordsChanged)) {
-						return false ;
-					}
-					if( keyWords != keyWordsChanged ){
-						isChanged = 1 ;
-					}
-					var params =  'keyWords=' + keyWords + '&isChanged=' + isChanged + (isChanged == 1?('&keyWordsChanged='+keyWordsChanged):'') ;
-					this.setAttribute('href', "http://s.taobao.com/search?q="+keyWordsChanged);
-					this.setAttribute('params', params);
-					return true ;
-				};
-			});
-			$.event.addEvent(elem, 'mouseout', function() {
-				$.ctrl.delayClean(timer);
-			});
-		};
-		
-		/***
+				if (keyWords != keyWordsChanged) {
+					isChanged = 1;
+				}
+				var params = 'keyWords=' + keyWords + '&isChanged=' + isChanged + (isChanged == 1 ? ('&keyWordsChanged=' + keyWordsChanged) : '');
+				this.setAttribute('href', "http://s.taobao.com/search?q=" + keyWordsChanged);
+				this.setAttribute('params', params);
+				return true;
+			};
+		});
+		$.event.addEvent(elem, 'mouseout', function() {
+			$.ctrl.delayClean(timer);
+		});
+	};
+
+	/***
 		 * 同款服饰数量提示模板
 		 */
-		$.tm.sameTypeTip = function(style){
-			
-			var e = document.getElementById(consts.commonName + 'sameType'),
-			closeCss = document.getElementById(consts.commonName + 'close').className;
-			if (e && cache.data.sameType && cache.data.sameType.sameTypeNum &&cache.data.sameType.sameTypeNum>0 && closeCss !== 'open' ) { //
-				var sameTypeNum = cache.data.sameType.sameTypeNum;
-				e.style.color = '#cc0033';
-				var tip = document.getElementById(consts.commonName + 'sameTypeTip');
-				tip.style.left = (dom.pageX(e) + (e.offsetWidth / 2) - 20) + 'px';
-				tip.style.display = style || 'block';
-				var tipContent = document.getElementById(consts.commonName+'sameTypeTipContent');
-				tipContent.style.display = style || 'block';
-				// calculate the position and content of the same Type tip text.
-				var util = $.require_module('youdao.util');
-				var n = util.getNumberLength(sameTypeNum); // 同款服饰数量位数 
-				var left , content ;
-				if( n > 3 ){
-					left =  (tip.offsetWidth-10*(4+1))/2 + 2 + 'px';
-					content = ">1000件"; 
-				}else{
-					left =  (tip.offsetWidth-10*(n+1))/2 + 'px';
-					content = sameTypeNum+"件"; 
-				}
-//				console.log("left="+left);
-//				console.log("content="+content);
-				tipContent.style.left = left ;
-				tipContent.innerHTML= content ;
+	$.tm.sameTypeTip = function(style) {
+
+		var e = document.getElementById(consts.commonName + 'sameType'),
+		closeCss = document.getElementById(consts.commonName + 'close').className;
+		if (e && cache.data.sameType && cache.data.sameType.sameTypeNum && cache.data.sameType.sameTypeNum > 0 && closeCss !== 'open') { //
+			var sameTypeNum = cache.data.sameType.sameTypeNum;
+			e.style.color = '#cc0033';
+			var tip = document.getElementById(consts.commonName + 'sameTypeTip');
+			tip.style.left = (dom.pageX(e) + (e.offsetWidth / 2) - 20) + 'px';
+			tip.style.display = style || 'block';
+			var tipContent = document.getElementById(consts.commonName + 'sameTypeTipContent');
+			tipContent.style.display = style || 'block';
+			// calculate the position and content of the same Type tip text.
+			var util = $.require_module('youdao.util');
+			var n = util.getNumberLength(sameTypeNum); // 同款服饰数量位数 
+			var left, content;
+			if (n > 3) {
+				left = (tip.offsetWidth - 10 * (4 + 1)) / 2 + 2 + 'px';
+				content = ">1000件";
 			} else {
-				var tip = document.getElementById(consts.commonName + 'sameTypeTip');
-				tip.style.display = 'none';
-				var tipContent = document.getElementById(consts.commonName+'sameTypeTipContent');
-				tipContent.innerHTML='';
-				tipContent.style.display = 'none';
+				left = (tip.offsetWidth - 10 * (n + 1)) / 2 + 'px';
+				content = sameTypeNum + "件";
 			}
+			//				console.log("left="+left);
+			//				console.log("content="+content);
+			tipContent.style.left = left;
+			tipContent.innerHTML = content;
+		} else {
+			var tip = document.getElementById(consts.commonName + 'sameTypeTip');
+			tip.style.display = 'none';
+			var tipContent = document.getElementById(consts.commonName + 'sameTypeTipContent');
+			tipContent.innerHTML = '';
+			tipContent.style.display = 'none';
 		}
+	}
 
 	/***
  * PriceData 模版 
@@ -646,7 +648,7 @@
 	/***
  * morePrice 模版 
  * */
-	$.tm.morePrice = '<span id="<%=name%>morePrice"<% if (len === data.urlPriceList.length) { %> class="noMore" title="暂无其他商城报价信息" <% } %> hoverAction="SHOW_MORE_MERCHANT" ref="morePrice"> </span>';
+	$.tm.morePrice = '<span id="<%=name%>morePrice"<% if (!data.urlPriceList || len === data.urlPriceList.length) { %> class="noMore" title="暂无其他商城报价信息" <% } %> hoverAction="SHOW_MORE_MERCHANT" ref="morePrice"> </span>';
 	$.tm.info.morePrice = '<ul><% for(var i=showLen; i < data.length; i++) {%>\
 										<% if (i - showLen >= 5) break; %>\
                                         <% if (data[i].available === "true") { %>\
@@ -864,18 +866,18 @@
 					if (e = document.getElementById(name + 'features')) {
 						e.style.top = '70px';
 						e.style.bottom = 'auto';
-						
-						var ele1 = youdao.dom.getElementsByClass('youdaoGWZS_upPoint','div',document.getElementById(name+'features'));
-						if( ele1 && ele1.length>0 ){
-							ele1[0].style.display='block';
-						}else{
-							return ;
+
+						var ele1 = youdao.dom.getElementsByClass('youdaoGWZS_upPoint', 'div', document.getElementById(name + 'features'));
+						if (ele1 && ele1.length > 0) {
+							ele1[0].style.display = 'block';
+						} else {
+							return;
 						}
-						ele1 = youdao.dom.getElementsByClass('youdaoGWZS_downPoint','div',document.getElementById(name+'features'));
-						if( ele1 && ele1.length>0 ){
-							ele1[0].style.display='none';
-						}else{
-							return ;
+						ele1 = youdao.dom.getElementsByClass('youdaoGWZS_downPoint', 'div', document.getElementById(name + 'features'));
+						if (ele1 && ele1.length > 0) {
+							ele1[0].style.display = 'none';
+						} else {
+							return;
 						}
 					};
 				} else {
@@ -897,18 +899,18 @@
 					if (e = document.getElementById(name + 'features')) {
 						e.style.bottom = '55px';
 						e.style.top = 'auto';
-						var ele1 = youdao.dom.getElementsByClass('youdaoGWZS_upPoint','div',document.getElementById(name+'features'));
-						console.log("ele:"+ele1);
-						if( ele1 && ele1.length>0 ){
-							ele1[0].style.display='none';
-						}else{
-							return ;
+						var ele1 = youdao.dom.getElementsByClass('youdaoGWZS_upPoint', 'div', document.getElementById(name + 'features'));
+						console.log("ele:" + ele1);
+						if (ele1 && ele1.length > 0) {
+							ele1[0].style.display = 'none';
+						} else {
+							return;
 						}
-						ele1 = youdao.dom.getElementsByClass('youdaoGWZS_downPoint','div',document.getElementById(name+'features'));
-						if( ele1 && ele1.length>0 ){
-							ele1[0].style.display='block';
-						}else{
-							return ;
+						ele1 = youdao.dom.getElementsByClass('youdaoGWZS_downPoint', 'div', document.getElementById(name + 'features'));
+						if (ele1 && ele1.length > 0) {
+							ele1[0].style.display = 'block';
+						} else {
+							return;
 						}
 					};
 				}
@@ -931,10 +933,12 @@
 		},
 		{},
 		'');
-		for (var i = 0, len = cache.data.urlPriceList.length; i < len; i++) {
-			var price = cache.data.urlPriceList[i];
-			span.innerHTML = price.siteName + '  ' + price.items[0].price + '元(缺货)';
-			price.len = span.offsetWidth + 35;
+		if (cache.data.urlPriceList && cache.data.urlPriceList.length !== 0) {
+			for (var i = 0, len = cache.data.urlPriceList.length; i < len; i++) {
+				var price = cache.data.urlPriceList[i];
+				span.innerHTML = price.siteName + '  ' + price.items[0].price + '元(缺货)';
+				price.len = span.offsetWidth + 35;
+			}
 		}
 		var reSizeWin = function() {
 			if (!cache.conf.ie) {
@@ -1117,7 +1121,7 @@
 	/***
 	 * 新功能引导 模版 
 	 * */
-		$.tm.features.tmple = '<ul class="feature">\
+	$.tm.features.tmple = '<ul class="feature">\
 	                                        <li class="fts1"><span class="ftLogo"></span>功能提示</li>\
 	                                        <li class="fts2"><div class="ftContent">\
 	                                        	<div class="ftContent1"><%=info[0]%> </div>\
@@ -1131,45 +1135,45 @@
 	                                        	<a href="<%=info[4]%>" target="_blank" clkAction="CLICK_FEATURE_HELP">查看功能详情>></a>\
 	                                        	<input id="ftsBt" type="button" clkAction="CLICK_FEATURE_USE" value="我知道了"/>\
 	                                        </li></ul>';
-		$.tm.features.event = function(fDiv) {
-			var logUtil = $.require_module('youdao.logUtil');
-			logUtil.sendLog('SHOW_NEW_FEATURE', new Image());
-			
-			$.event.addEvent(document.getElementById('ftsBt'), 'click', function() {
-				var util = $.require_module('youdao.util');
-				
-				//log
-				if( $.conf.features[cache.conf.flag-1] === 'sameType'){
-					var sameTypeNum = cache.data.sameType.sameTypeNum ;
-					this.setAttribute('params', 'sameTypeNum='+sameTypeNum );
-				}
-				
-				fDiv.style.display = 'none';
-				var code = $.conf.features[cache.conf.flag - 1];
-				$.tm.event[code] = $.tm.event.tmp;
-				$.tm.event.tmp();
-				// write the local storage 
-				var sE = document.getElementById(consts.optionsID);
-				if (sE && cache.localConf) {
-					cache.localConf.featureCode = util.setFtCode(cache.localConf.featureCode?cache.localConf.featureCode:'',cache.conf.flag-1,true) ;
-					sE.innerHTML = util.jsonToStr(cache.localConf, ';');
-				}
-//				console.log('cache.dom.elem.flag'+cache.dom.elem.flag);
-//				console.log('cache.conf.flag'+cache.conf.flag);
-				// remember : set flag = 0;
-				cache.conf.flag = 0 ;
-				cache.dom.elem.flag = (cache.conf.flag <= $.conf.features.length) ? cache.conf.flag: 0;
-			});
-			fDiv.closeFdiv = function() {
-				var util = $.require_module('youdao.util');
-				fDiv.style.display = 'none';
+	$.tm.features.event = function(fDiv) {
+		var logUtil = $.require_module('youdao.logUtil');
+		logUtil.sendLog('SHOW_NEW_FEATURE', new Image());
+
+		$.event.addEvent(document.getElementById('ftsBt'), 'click', function() {
+			var util = $.require_module('youdao.util');
+
+			//log
+			if ($.conf.features[cache.conf.flag - 1] === 'sameType') {
+				var sameTypeNum = cache.data.sameType.sameTypeNum;
+				this.setAttribute('params', 'sameTypeNum=' + sameTypeNum);
 			}
-			fDiv.openFdiv = function() {
-				var util = $.require_module('youdao.util');
-				fDiv.style.display = 'block';
-				
+
+			fDiv.style.display = 'none';
+			var code = $.conf.features[cache.conf.flag - 1];
+			$.tm.event[code] = $.tm.event.tmp;
+			$.tm.event.tmp();
+			// write the local storage 
+			var sE = document.getElementById(consts.optionsID);
+			if (sE && cache.localConf) {
+				cache.localConf.featureCode = util.setFtCode(cache.localConf.featureCode ? cache.localConf.featureCode: '', cache.conf.flag - 1, true);
+				sE.innerHTML = util.jsonToStr(cache.localConf, ';');
 			}
-		};
+			//				console.log('cache.dom.elem.flag'+cache.dom.elem.flag);
+			//				console.log('cache.conf.flag'+cache.conf.flag);
+			// remember : set flag = 0;
+			cache.conf.flag = 0;
+			cache.dom.elem.flag = (cache.conf.flag <= $.conf.features.length) ? cache.conf.flag: 0;
+		});
+		fDiv.closeFdiv = function() {
+			var util = $.require_module('youdao.util');
+			fDiv.style.display = 'none';
+		}
+		fDiv.openFdiv = function() {
+			var util = $.require_module('youdao.util');
+			fDiv.style.display = 'block';
+
+		}
+	};
 
 })(youdao);
 

@@ -4,7 +4,7 @@
     m.newFeatures = function(){
         if (cache.conf.flag && $.conf.features.length !== 0 ) {
             var showFeatures = function(num) {
-                    var item = $.conf.features[num], dom = $.require_module('youdao.dom'), fDiv = cache.dom.body.append('div', { id: consts.commonName + 'features' },{ position: 'absolute' });
+                    var item = $.conf.features[num], dom = $.require_module('youdao.dom'), fDiv = cache.dom.body.append('div', { id: consts.commonName + 'features' },{ position: 'absolute', zIndex: '999999' });
                     elem = document.getElementById(consts.commonName + item);
                     
                    //当同款数目为0时，不触发新功能提示；同时将同款服饰按钮的原有事件恢复。

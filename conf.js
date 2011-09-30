@@ -5,7 +5,7 @@
         'initGouwuContainer': [],
         '110011': ['searchMin', 'douban',  'conf', 'taobao', 'morePrice','priceData', 'resize'],
         '110000': ['searchMax','conf'],
-        '111100': ['searchMin', 'sameType', 'conf' ,'taobao','morePrice',  'resize'],
+        '111100': ['searchMin', 'sameType', 'conf' ,'taobao','morePrice', 'resize'],
         features: ['sameType'],
         featuresCode:'1',
         action: {
