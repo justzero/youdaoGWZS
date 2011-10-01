@@ -17,7 +17,7 @@
 		var json = {
 			url: consts.serUrl,
 			params: {
-				'browser': conf.browser,
+				'browser': cache.localConf.browser || conf.browser,
 				'version': conf.version,
 				'vendor': conf.vendor,
 				'av': conf.apiVersion,

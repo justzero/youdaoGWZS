@@ -15,7 +15,7 @@
 				toSite: elem.getAttribute('href') || 'none',
 				product: cache.conf.product,
 				position: elem.getAttribute('ps') || 'no-position',
-                browser: cache.conf.browser,
+                browser: cache.localConf.browser || cache.conf.browser,
 				version: cache.conf.version,
 				vendor: cache.conf.vendor,
 				cateGory: cache.conf.cateGory
