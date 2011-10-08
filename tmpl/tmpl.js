@@ -150,11 +150,12 @@
  * searchMin 模版 
  * */
 	$.tm.searchMin = '<span id="<%=name%>searchMin" title="搜索" clkAction="SHOW_SEARCH"> </span>';
-	$.tm.info.searchMin = '<form id="<%=name%>searchMinForm" action="http://gouwu.youdao.com/search?keyfrom=extension" target="_blank" method="get">\
+	$.tm.info.searchMin = '<% var addr = "http://gouwu.youdao.com/search?keyfrom=extension", bt = "搜商品"; if (taobao) { addr="http://s.taobao.com/search?keyfrom=extension"; bt="搜淘宝"; } %>\
+									<form id="<%=name%>searchMinForm" action="<%=addr%>" target="_blank" method="get">\
 	                                <fieldset id="<%=name%>fld">\
                                     <input id="<%=name%>searchInfo" autocomplete="off" name="q" type="text" value="<%=value%>" />\
 									<input name="keyfrom" value="extension" type="hidden" />\
-                                    <input id="<%=name%>searchBt" type="submit" clkAction="SEARCH" value="搜商品" />\
+                                    <input id="<%=name%>searchBt" type="submit" clkAction="SEARCH" value="<%=bt%>" />\
 									</fieldset>\
                                     </form>';
 	$.tm.event.searchMin = function() {
