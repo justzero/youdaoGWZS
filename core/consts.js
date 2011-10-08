@@ -21,9 +21,9 @@
 		commonCssName: "extension_2_0_",
 		commonName: "gouwu_",
 		showTime: .2,
-		baseUrl_test: "http://localhost:8080/",
-		serUrl_test: "gouwutest/index.php",
-		baseCss_test: "http://localhost:8080/css/",
+		baseUrl_test: "./server/",
+		serUrl_test: "data1.js",
+		baseCss_test: "./css/",
 		commonCssName_test: ""
 	};
 
