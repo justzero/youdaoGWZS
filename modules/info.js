@@ -44,7 +44,7 @@
 			for (var item in json)
 				if (cache.conf[item]) cache.conf[item] = json[item];
 		} else {
-			var cache.localConf = {
+			cache.localConf = {
 				browser: '360se',
 				vendor: 'youdao',
 				version: '1.9'
