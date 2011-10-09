@@ -32,7 +32,6 @@
 			}
             div.innerHTML = html;
 			if (div.style.display === 'none'){
-				div.style.display = 'block';
 				var options = {
 					elem: div.id,
 					attr: ['fade', 0, 100, 'px'],
@@ -41,7 +40,8 @@
 					context: this,
 					callback: function(){}
 				};
-				if (cache.conf.ie !== 6) $.addAnimate(options);
+				//if (cache.conf.ie !== 6) $.addAnimate(options);
+				div.style.display = 'block';
 			};
             if (fn) fn();
         },

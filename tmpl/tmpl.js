@@ -781,9 +781,9 @@
  * */
 	$.tm.conf = '<span id="<%=name%>conf"\
 			<% if (data.code === "110000") {%>\
-				style="background-position-x: -30px; border-bottom: none 0; float: left; "\
+				style="background-image: url(http://zhushou.youdao.com/images/extension_2_0/gouwu_conf_ff.png); border-bottom: none 0; float: left; "\
 			<% }else{ %>\
-				style="background-position-x: 0px;"\
+				style="background-image: url(http://zhushou.youdao.com/images/extension_2_0/gouwu_conf.png);"\
 			<% } %>\
 			title="设置"\
 			clkAction="CLICK_SET"> </span>';

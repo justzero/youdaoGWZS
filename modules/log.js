@@ -19,6 +19,7 @@
 				version: cache.conf.version,
 				vendor: cache.conf.vendor,
 				cateGory: cache.conf.cateGory,
+				location: cache.conf.position
 			};
 			
 			if (elem.tagName === 'INPUT' && elem.getAttribute('type') === 'submit' && json.toSite === "none") {
