@@ -165,7 +165,8 @@
 			json = {
 				css: 'youdao',
 				value: cache.conf.searchData,
-				name: name
+				name: name,
+				taobao: cache.conf.taobao
 			},
 			consts = $.require_module('youdao.consts'),
 			timer = consts.showTime * 1000,
@@ -952,7 +953,7 @@
 			};
 			cache.dom.contentWidth = (cache.conf.ie === 6) ? Math.ceil(cache.dom.bodyWidth - 160) : Math.ceil(cache.dom.bodyWidth - 152);
 			document.getElementById(consts.commonName + 'contentBar').style.width = cache.dom.contentWidth + 'px';
-			if (cache.data.code === '110000') {
+			if (cache.data.code === '110011') {
 				var tmpW, sub = 0,
 				i = 0,
 				mLeft = 0;
