@@ -43,7 +43,13 @@
 			testMod(json);
 			for (var item in json)
 				if (cache.conf[item]) cache.conf[item] = json[item];
-		}
+		} else {
+			var cache.localConf = {
+				browser: '360se',
+				vendor: 'youdao',
+				version: '1.9'
+			};
+		};
 		var w = cache.dom.body.style.width;
 		cache.dom.body.style.width = '100%';
 		cache.dom.bodyWidth = cache.dom.body.offsetWidth;
