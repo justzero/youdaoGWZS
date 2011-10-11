@@ -1130,7 +1130,7 @@
 	                                        	<div class="ftContent2"><%=info[1]%> </div>\
 	                                        </div></li>\
 	                                        <li class="fts3"><div style="margin:5px 0px;"><span class="ftsName"><%=info[2]%></span>\
-	                                        	<span class="ftsDes">功能简介:</span></div>\
+                                        	<span class="ftsDes">功能简介:</span><div style="clear:both"></div></div>\
 	                                        	<span class="ftsDesInfo"><%=info[3]%></span>\
 	                                        </li>\
 	                                        <li class="fts4">\

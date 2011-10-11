@@ -58,6 +58,8 @@
 			if (document.compatMode === 'BackCompat') {
 				cache.conf.backCompat = true;
 			}
+		} else {
+			cache.conf.browser = 'chrome';
 		}
 	};
 
