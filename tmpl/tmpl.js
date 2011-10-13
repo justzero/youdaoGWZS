@@ -948,10 +948,13 @@
 				cache.dom.body.style.width = '100%';
 				cache.dom.bodyWidth = cache.dom.body.offsetWidth;
 				cache.dom.body.style.width = w;
+				if (cache.localConf && cache.localConf.browser && cache.localConf.browser === 'opera' && document.compatMode === 'BackCompat') {
+				cache.dom.bodyWidth -= 17;
+				}
 			} else {
 				cache.dom.bodyWidth = (document.documentElement.clientWidth) ? document.documentElement.clientWidth: document.body.clientWidth;
 			};
-			cache.dom.contentWidth = (cache.conf.ie === 6) ? Math.ceil(cache.dom.bodyWidth - 160) : Math.ceil(cache.dom.bodyWidth - 152);
+			cache.dom.contentWidth = (cache.conf.ie === 6) ? Math.ceil(cache.dom.bodyWidth - 160) : Math.ceil(cache.dom.bodyWidth - 153);
 			document.getElementById(consts.commonName + 'contentBar').style.width = cache.dom.contentWidth + 'px';
 			if (cache.data.code === '110011') {
 				var tmpW, sub = 0,
