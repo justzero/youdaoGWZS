@@ -4,24 +4,24 @@
 	consts = $.require_module('youdao.consts'),
 	util = $.require_module('youdao.util');
 	m.gouwuLog = function() {
-		if (cache.conf.test && !cache.localConf.log) return; //test return
+		if (cache.conf.test && ! cache.localConf.log) return; //test return
 		var img = new Image();
 		/*** set log ***/
 		var sendLog = function(action, elem) {
 			var json = {
 				type: consts.logType,
 				action: action,
-				fromSite: consts.pageUrl,
+				fromSite: document.domain,
 				toSite: elem.getAttribute('href') || 'none',
 				product: cache.conf.product,
 				position: elem.getAttribute('ps') || 'no-position',
-                browser: cache.localConf.browser || cache.conf.browser,
+				browser: cache.localConf.browser || cache.conf.browser,
 				version: cache.conf.version,
 				vendor: cache.conf.vendor,
 				cateGory: cache.conf.cateGory,
 				location: cache.conf.position
 			};
-			
+
 			if (elem.tagName === 'INPUT' && elem.getAttribute('type') === 'submit' && json.toSite === "none") {
 				if (json.toSite === 'none') return true;
 				else elem.removeAttribute('href');
@@ -29,15 +29,15 @@
 			if (elem.className === 'non' || elem.className === 'noMore') {
 				return true;
 			}
-			
-			var params , parameters = elem.getAttribute('params') || 'no-parameters' ;
-			if( parameters === 'no-parameters' ){
-				params = util.comboParams(json) ;
-			}else{
-				params = util.comboParams(json) + '&'+parameters ;
+
+			var params, parameters = elem.getAttribute('params') || 'no-parameters';
+			if (parameters === 'no-parameters') {
+				params = util.comboParams(json);
+			} else {
+				params = util.comboParams(json) + '&' + parameters;
 			}
-			
-			img.src = consts.logUrl + '?' + params ;
+
+			img.src = consts.logUrl + '?' + params;
 			return true;
 		};
 		/*** �ݹ�ڵ� ***/
@@ -60,7 +60,9 @@
 			var target = e.target || e.srcElement;
 			startLog('hoverAction', target);
 		});
+		if (!cache.fn) cache.fn = {};
+		cache.fn.sendLog = sendLog;
 	};
-	
+
 })(youdao);
 

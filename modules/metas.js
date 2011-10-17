@@ -16,6 +16,9 @@
 				if (tmp !== '') metas[key] = tmp;
 				cache.conf.taobao = true;
 			};
+			if (/(taobao\.com)|(tmall\.com)/.test(_host)) {
+				cache.conf.taobao = true;
+			};
 		};
 		for (i in metas) cache.conf[i] = metas[i];
 		function getTaobaoInfo() {

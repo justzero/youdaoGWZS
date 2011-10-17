@@ -335,6 +335,9 @@
 		timer = consts.showTime * 1000;
 		$.event.addEvent(elem, 'mouseover', function() {
 			if (elem.className === 'noMore') return;
+			if( (/^\s*$/).test(cache.conf.similarTypeWords) && cache.data.sameType.similarTypeWords){
+				cache.conf.similarTypeWords = cache.data.sameType.similarTypeWords ;
+			}
 			var div = cache.dom.show,
 			dom = $.require_module('youdao.dom'),
 			str = $.tm.popo({
@@ -345,7 +348,7 @@
 			html = $.tmpl(str, {
 				sameTypeNum: cache.data.sameType.sameTypeNum ? cache.data.sameType.sameTypeNum: 0,
 				sameTypeUrl: cache.data.sameType.sameTypeUrl,
-				similarTypeWords: cache.data.sameType.similarTypeWords,
+				similarTypeWords: cache.conf.similarTypeWords,
 				name: consts.commonName,
 				logo: '同款服饰'
 			});;
@@ -390,6 +393,29 @@
 				this.setAttribute('params', params);
 				return true;
 			};
+			
+			document.getElementById(name + 'searchSimilarInfo').onchange = function() {
+				cache.conf.similarTypeWords = this.value ;
+				this.title = cache.conf.similarTypeWords;
+				return true;
+			};
+//			var timeID2 ,timer2 = 1000;
+//			var inputEle = document.getElementById(name + 'searchSimilarInfo') ;
+//			inputEle.onfocus = function() {
+//				console.log('on focus') ;
+//				timeID2 = setInterval(function(){
+//					cache.conf.similarTypeWords = inputEle.value ;
+//					console.log(inputEle.value) ;
+//					inputEle.title = cache.conf.similarTypeWords;
+//				}, timer2);
+//				return true;
+//			};
+//			inputEle.onblur = function() {
+//				console.log('on blur') ;
+//				clearInterval(timeID2);
+//				return true;
+//			};
+			
 		});
 		$.event.addEvent(elem, 'mouseout', function() {
 			$.ctrl.delayClean(timer);
@@ -1141,11 +1167,11 @@
 	                                        	<input id="ftsBt" type="button" clkAction="CLICK_FEATURE_USE" value="我知道了"/>\
 	                                        </li></ul>';
 	$.tm.features.event = function(fDiv) {
-		var logUtil = $.require_module('youdao.logUtil');
-		logUtil.sendLog('SHOW_NEW_FEATURE', new Image());
+		var util = $.require_module('youdao.util');
+		if (cache.fn && cache.fn.sendLog && util.isFunction(cache.fn.sendLog))
+			cache.fn.sendLog('SHOW_NEW_FEATURE', new Image());
 
 		$.event.addEvent(document.getElementById('ftsBt'), 'click', function() {
-			var util = $.require_module('youdao.util');
 
 			//log
 			if ($.conf.features[cache.conf.flag - 1] === 'sameType') {
