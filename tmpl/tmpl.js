@@ -196,32 +196,19 @@
 				if (!youdao_input_click(el)) return false;
 				else this.setAttribute('href', 'http://gouwu.youdao.com/search?q=' + el.value);
 			};
-			div.onmouseout = function() {
-				if (document.getElementById(name + 'searchInfo')) {
-					//console.log( name );
-					cache.conf.searchData = (/^\s*$/g).test(document.getElementById(name + 'searchInfo').value) ? '请输入想查找的商品': document.getElementById(name + 'searchInfo').value;
-				};
-				$.ctrl.delayClean(timer, function() {
-					div.onmouseout = function() {
-						$.ctrl.delayClean(timer);
-					};
-				});
-			};
+		document.getElementById(name + 'searchInfo').onkeyup = function() {
+			cache.conf.searchData = this.value;
+			console.log(this.value);
+		};
 		});
 		$.event.addEvent(document.getElementById(name + 'searchMin'), 'mouseout', function() {
 			var consts = $.require_module('youdao.consts'),
 			timer = consts.showTime * 1000,
 			cache = $.require_module('youdao.cache'),
 			div = cache.dom.show;
-			if (document.getElementById(name + 'searchInfo')) {
-				//console.log( name );
-				cache.conf.searchData = document.getElementById(name + 'searchInfo').value;
+			div.onmouseout = function() {
+				$.ctrl.delayClean(timer);
 			};
-			$.ctrl.delayClean(timer, function() {
-				div.onmouseout = function() {
-					$.ctrl.delayClean(timer);
-				};
-			});
 		});
 	};
 
@@ -394,9 +381,10 @@
 				return true;
 			};
 			
-			document.getElementById(name + 'searchSimilarInfo').onchange = function() {
+			document.getElementById(name + 'searchSimilarInfo').onkeyup = function() {
 				cache.conf.similarTypeWords = this.value ;
 				this.title = cache.conf.similarTypeWords;
+				console.log(this.title);
 				return true;
 			};
 //			var timeID2 ,timer2 = 1000;
