@@ -810,7 +810,7 @@
 				  <div class="radio radio2">\
                       <input id="downBt" type="radio" name="conf" value = "网页下方">浏览器底部\
 				  </div>\
-				  <input id="<%=name%>set" type="button" clkAction="SET" value = "确定" class="non1">\
+				  <input id="<%=name%>set" type="button" clkAction="SET" onclick="this.blur();" value = "确定" class="non1">\
                   </div>\
                   <a class="youdaoGWZShelp" href="http://zhushou.youdao.com/help" clkAction="SUGGEST" target="_blank" >帮助</a>\
                   <a class="youdaoGWZSfeelback" href="http://zhushou.youdao.com/suggest" clkAction="HELP" target="_blank" >意见反馈</a>\
