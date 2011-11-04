@@ -45,7 +45,7 @@
 				if (cache.conf[item]) cache.conf[item] = json[item];
 		} else {
 			cache.localConf = {
-				browser: '360se',
+				browser: 'se360',
 				vendor: 'youdao',
 				version: '1.9'
 			};
